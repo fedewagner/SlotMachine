@@ -4,7 +4,7 @@ namespace SlotMachine;
 
 public class RandomGridGeneration
 {
-    public static Array GeneratingGrid()
+    public static int[,] GeneratingGrid()
     {
         const int MIN_FOR_RANDOM_FUNCTION = 1;
         const int MAX_FOR_RANDOM_FUNCTION = 9;
@@ -34,7 +34,7 @@ public class RandomGridGeneration
                 //random generation
                 Random random = new Random();
                 int randomItem = random.Next(MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
-                userArray[col, row] = randomItem;
+                userArray[row, col] = randomItem;
                 
                 if (col % 2 != 0)
                 {
@@ -46,7 +46,7 @@ public class RandomGridGeneration
                 }
 
                 //Print the output
-                Console.Write("  " + userArray[col, row] + "  ");
+                Console.Write("  " + userArray[row, col] + "  ");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
 
