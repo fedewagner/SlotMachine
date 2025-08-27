@@ -10,11 +10,52 @@
             For instance the user can enter $3 dollars and play all three horizontal lines. 
             If the top line hits a winning combination, they earn $1 dollar for that line.
         */
+
+            const int CREDIT_DELTA = 100;
+            const string KEY_FOR_ADDING_CREDIT = "f";
+            const string KEY_FOR_GAMING = "p";
+            List<string> options = new List<string> { KEY_FOR_ADDING_CREDIT,  KEY_FOR_GAMING };
             
-            //create variable to store user credit
+            //variable
+            int userCredit = 0;
+            bool gameMode = false;
+            string selection;
+
             //give info to user
-            //add credit option for the user
+            Console.WriteLine("Welcome to the Slot Machine!");
+
+            //Add initial credit
+            do
+            {
+                Console.WriteLine("Please enter some credit (Press F)!");
+                selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            } 
+            while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
+            userCredit = userCredit + CREDIT_DELTA;
+            Console.WriteLine($"Your current credit: {userCredit} $");
+            
+            //add mode credit or go into game mode
+            Console.WriteLine("In case you want to add more money please insert banknote (Press F)!");
+            Console.WriteLine("Otherwise, to play (Press P)!");
+            
+            while (options.Contains(selection) && !gameMode) {
+                selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
+                switch(selection)
+                {
+                    case "p": gameMode = true; break;
+                    case "f":
+                    {
+                        userCredit = userCredit + 100; 
+                        Console.WriteLine($"Your current credit: {userCredit} $");
+                        Console.WriteLine("More money? => (Press F)! or to play (Press P)!");
+                        break;
+                    }
+                }
+            } 
+            
             //make and show an empty grid
+            SlotMachine.ShowInitialGrid.DisplayEmptyGrid();
+           
             //create horizontal method
             //create vertical method
             //create diagonal method
@@ -26,8 +67,8 @@
             //calculate new credit
             //check out money option
             //insert more money option 
-            
-            
+
+
         }
     }
 }
