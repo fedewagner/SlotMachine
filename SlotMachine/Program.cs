@@ -25,7 +25,7 @@
             //display prize
             //calculate new credit
             //check out money option
-            //insert more money option
+            //insert more money option 
             
             
         }
