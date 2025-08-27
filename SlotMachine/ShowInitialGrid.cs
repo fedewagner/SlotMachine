@@ -39,7 +39,7 @@ public class ShowInitialGrid
 
                 //Print the output
                 Console.Write("  " + userArray[col, row] + "  ");
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             //print last Character each row
@@ -54,6 +54,6 @@ public class ShowInitialGrid
             Console.Write("--+--");
         }
 
-        Console.Write("+");
+        Console.WriteLine("+");
     }
 }
