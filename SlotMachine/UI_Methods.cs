@@ -153,5 +153,66 @@ public class UI_Methods
         
         return game_modus;
     }
+
+    /// <summary>
+    /// This method check if we have winners. For this we have 4 options:
+    /// 1. Middle line mode
+    /// 2. All horizontal lines mode
+    /// 3. All vertical lines mode
+    /// 4. 2 diagonals mode
+    /// </summary>
+    /// <param name="userArray"></param>
+    /// <param name="dimension"></param>
+    /// <returns>winnersArray which is a boolean array with the winners options inside</returns>
+    public static bool[] CheckingWinners(int[,] userArray, int dimension)
+    {
+        bool[] winnersArray = new bool[4];
+        bool IS_OPTION_1_A_WINNER = true;
+        bool IS_OPTION_2_A_WINNER = true;
+        bool IS_OPTION_3_A_WINNER = false;
+        bool IS_OPTION_4_A_WINNER = false;
+
+
+        //OPTION 1. Middle line mode
+
+        int middle = dimension / 2;
+        int first = userArray[middle, 0];
+
+        for (int column = 0; column < dimension; column++)
+        {
+            if (userArray[middle, column] != first)
+            {
+                IS_OPTION_1_A_WINNER = false;
+                break;
+            }
+        }
+        
+        /// 2. All horizontal lines mode
+        
+        bool stopAll = false;
+        
+        for (int row = 0; row < dimension && !stopAll; row++)
+        {
+            int first_of_row = userArray[row, 0];
+            for (int column = 0; column < dimension; column++)
+            {
+                if (userArray[row, column] != first_of_row)
+                {
+                    IS_OPTION_2_A_WINNER = false;
+                    stopAll = true;
+                    break;
+                }
+            }
+            
+        }
+        
+        //Assign
+        winnersArray[0] = IS_OPTION_1_A_WINNER;
+        winnersArray[1] = IS_OPTION_2_A_WINNER;
+        winnersArray[2] = IS_OPTION_3_A_WINNER;
+        winnersArray[3] = IS_OPTION_4_A_WINNER;
+
+        return winnersArray;
+    }
     
 }

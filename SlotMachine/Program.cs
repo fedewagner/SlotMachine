@@ -39,14 +39,19 @@
             userArray = Data_Source.GeneratingGrid(DIMENSION);
 
             //check all the combinations
-            bool[] winnersArray = new bool [8];
-            winnersArray = SlotMachine.CheckWinners.CheckingWinners(userArray);
+            // 1 Middle line mode
+            // 2 All horizontal lines mode
+            // 3 All vertical lines mode
+            // 4 2 diagonals mode
+            
+            bool[] winnersArray = new bool [4];
+            winnersArray = UI_Methods.CheckingWinners(userArray, DIMENSION);
 
             //check the bet and if the user won money
 
             for (int i = 0; i < winnersArray.Length; i++)
             {
-                Console.WriteLine("Line number " + (i + 1) + " is a winner?: "+ winnersArray[i]);
+                Console.WriteLine("Is option " + (i + 1) + " a winner?: "+ winnersArray[i]);
             }
             
             //NEXT STEP: add in the gamemodus an array with 0 and 1 for each line which is active and not
