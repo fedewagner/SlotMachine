@@ -11,7 +11,7 @@
             If the top line hits a winning combination, they earn $1 dollar for that line.
         */
 
-            int userCredit = 0;
+            int userCredit;
             
             //welcome and interact with UI to add credit
             userCredit = UI_Methods.WelcomeUserAndAddSomeCredit();
@@ -19,17 +19,16 @@
             const int DIMENSION = 3;
             int[,] userArray = new int [DIMENSION, DIMENSION];
  
-            
             //make and show an empty grid
-            SlotMachine.ShowInitialGrid.DisplayEmptyGrid();
+            UI_Methods.DisplayEmptyGrid(DIMENSION);
             
             //create horizontal method
             //create vertical method
             //create diagonal method
             
             //select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
-            int game_modus = 0;
-            game_modus = SlotMachine.LinesSelection.AskForLinesSelection(userCredit);
+            int game_modus;
+            game_modus = UI_Methods.AskForLinesSelection(userCredit);
             
             //Clean screen
             //you bet and credit
