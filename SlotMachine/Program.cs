@@ -11,51 +11,14 @@
             If the top line hits a winning combination, they earn $1 dollar for that line.
         */
 
-            const int CREDIT_DELTA = 100;
-            const string KEY_FOR_ADDING_CREDIT = "f";
-            const string KEY_FOR_GAMING = "p";
-            
-            int dimension = 3;
-            
-            List<string> options_menu = new List<string> { KEY_FOR_ADDING_CREDIT,  KEY_FOR_GAMING };
-            int[,] userArray = new int [dimension, dimension];
-            
-            //variables
             int userCredit = 0;
-            bool gameMode = false;
-            string selection;
-
-            //give info to user
-            Console.WriteLine("Welcome to the Slot Machine!");
-
-            //Add initial credit
-            do
-            {
-                Console.WriteLine("Please enter some credit (Press F)!");
-                selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-            } 
-            while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
-            userCredit += CREDIT_DELTA;
-            Console.WriteLine($"Your current credit: {userCredit} $");
             
-            //add mode credit or go into game mode
-            Console.WriteLine("In case you want to add more money please insert banknote (Press F)!");
-            Console.WriteLine("Otherwise, to play (Press P)!");
+            //welcome and interact with UI to add credit
+            userCredit = UI_Methods.WelcomeUserAndAddSomeCredit();
             
-            while (options_menu.Contains(selection) && !gameMode) {
-                selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-                switch(selection)
-                {
-                    case "p": gameMode = true; break;
-                    case "f":
-                    {
-                        userCredit += 100; 
-                        Console.WriteLine($"Your current credit: {userCredit} $");
-                        Console.WriteLine("More money? => (Press F)! or to play (Press P)!");
-                        break;
-                    }
-                }
-            } 
+            const int DIMENSION = 3;
+            int[,] userArray = new int [DIMENSION, DIMENSION];
+ 
             
             //make and show an empty grid
             SlotMachine.ShowInitialGrid.DisplayEmptyGrid();
