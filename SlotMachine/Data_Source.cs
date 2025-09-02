@@ -1,15 +1,17 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace SlotMachine;
 
-public class RandomGridGeneration
+public class Data_Source
 {
-    public static int[,] GeneratingGrid()
+    /// <summary>
+    ///This method feeds randomly the grid with the values
+    /// </summary>
+    /// <param name="dimension">This needs the dimension to know how many values are needed</param>
+    /// <returns></returns>
+    public static int[,] GeneratingGrid(int dimension)
     {
         const int MIN_FOR_RANDOM_FUNCTION = 1;
         const int MAX_FOR_RANDOM_FUNCTION = 9;
         
-        int dimension = 3;
         int[,] userArray = new int [dimension, dimension];
         
         //Print the upper border (one extra at the beginning and one at the end)

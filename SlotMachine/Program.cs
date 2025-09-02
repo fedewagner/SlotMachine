@@ -16,26 +16,27 @@
             //welcome and interact with UI to add credit
             userCredit = UI_Methods.WelcomeUserAndAddSomeCredit();
             
+            // select dimension of the grid
             const int DIMENSION = 3;
             int[,] userArray = new int [DIMENSION, DIMENSION];
  
             //make and show an empty grid
             UI_Methods.DisplayEmptyGrid(DIMENSION);
             
-            //create horizontal method
-            //create vertical method
-            //create diagonal method
+            //TO_BE_ADDED: create horizontal method
+            //TO_BE_ADDED: create vertical method
+            //TO_BE_ADDED: create diagonal method
             
             //select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
             int game_modus;
             game_modus = UI_Methods.AskForLinesSelection(userCredit);
             
-            //Clean screen
-            //you bet and credit
-            //ADITIONAL: some animation
+            //TO_BE_ADDED: Clean screen
+            //TO_BE_ADDED: you bet and credit
+            //TO_BE_ADDED ADITIONAL: some animation
             
             //feed randomly the grid with the values
-            userArray = SlotMachine.RandomGridGeneration.GeneratingGrid();
+            userArray = Data_Source.GeneratingGrid(DIMENSION);
 
             //check all the combinations
             bool[] winnersArray = new bool [8];
