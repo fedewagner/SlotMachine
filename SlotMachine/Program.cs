@@ -59,18 +59,13 @@
             isOption3AWinner = CheckingAllVerticalLines(userArray);
             Console.WriteLine($"Is any vertical line a winner?:  {isOption3AWinner}");
             // 4 2 diagonals mode
+            isOption4AWinner = CheckingDiagagonals(userArray);
+            Console.WriteLine($"Is any diagonal line a winner?:  {isOption4AWinner}");
 
 
-            //NEXT STEP: add in the gamemodus an array with 0 and 1 for each line which is active and not
+            //NEXT STEP: add in the game_modus an array with 0 and 1 for each line which is active and not
             //NEXT STEP: use that array to multiply the winning lines for a fix amount
-            // L1 = 2$
-            // L2 = 2$
-            // L3 = 2$
-            // L4 = 3$
-            // L5 = 3$
-            // L6 = 3$
-            // L7 = 5$
-            // L8 = 5$
+
 
 
             //display prize
@@ -78,6 +73,7 @@
             //check out money option
             //insert more money option
 
+            //Methods area
             // check only one middle line
             static bool CheckingHorizontalLine(int[,] userArray, int rowToCheck)
             {
@@ -93,7 +89,9 @@
 
                 return true;
             }
-
+            
+            
+            //check all Vertical Lines
             static bool CheckingAllHorizontalLines(int[,] userArray)
             {
                 int rows = userArray.GetLength(0);
@@ -105,11 +103,12 @@
 
                 return false;
             }
-
+            
+            //check all Vertical Lines
             static bool CheckingAllVerticalLines(int[,] userArray)
             {
-                int columns = userArray.GetLength(1);
                 int rows = userArray.GetLength(0);
+                int columns = userArray.GetLength(1);
 
                 for (int column = 0; column < columns; column++)
                 {
@@ -129,6 +128,35 @@
 
                 return false; //no column winning
             }
+
+            static bool CheckingDiagagonals(int[,] userArray)
+            {
+                int rows = userArray.GetLength(0);
+                int columns = userArray.GetLength(1);
+                bool isDiagonal1AWinner = true;
+                bool isDiagonal2AWinner = true;
+                int firstElementDiagonal1 = userArray[0, 0];
+                for (int row = 1, col = 1; row < rows && col < columns; row++, col++)
+                {
+                    if (userArray[row, col] != firstElementDiagonal1)
+                    {
+                        isDiagonal1AWinner = false;
+                        break;
+                    }
+                }
+                int lastRow = userArray.GetLength(0) - 1;
+                int firstElementDiagonal2 = userArray[lastRow, 0];
+                for (int row = lastRow-1, col = 1; row >= 0 && col < columns; row--, col++)
+                {
+                    if (userArray[row, col] != firstElementDiagonal2)
+                    {
+                        isDiagonal2AWinner = false;
+                        break;
+                    }
+                }
+                return isDiagonal1AWinner || isDiagonal2AWinner;
+            }
+
         }
     }
 }
