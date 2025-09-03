@@ -2,25 +2,25 @@ namespace SlotMachine;
 
 public class UI_Methods
 {
+    const int CREDIT_DELTA = 100;
+    const string KEY_FOR_ADDING_CREDIT = "f";
+    const string KEY_FOR_GAMING = "p";
+
     /// <summary>
     /// This methods welcomes the user and give the option to add credit or go into play mode.
     /// </summary>
     /// <returns></returns>
     public static int WelcomeUserAndAddSomeCredit()
     {
-        const int CREDIT_DELTA = 100;
-        const string KEY_FOR_ADDING_CREDIT = "f";
-        const string KEY_FOR_GAMING = "p";
-        
         //variables
         int userCredit = 0;
         bool gameMode = false;
         string selection;
-        
+
         //define keys for user to be pressed
-        List<string> options_menu = new List<string> { KEY_FOR_ADDING_CREDIT,  KEY_FOR_GAMING };
- 
-        
+        List<string> options_menu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
+
+
         //give info to user
         Console.WriteLine("Welcome to the Slot Machine!");
 
@@ -29,39 +29,41 @@ public class UI_Methods
         {
             Console.WriteLine($"Please enter some credit (Press {options_menu[0]})!");
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-        } 
-        while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
+        } while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
+
         userCredit += CREDIT_DELTA;
         Console.WriteLine($"Your current credit: {userCredit} $");
-        
+
         //add mode credit or go into game mode
         Console.WriteLine($"In case you want to add more money please insert banknote (Press {options_menu[0]})!");
         Console.WriteLine($"Otherwise, to play (Press {options_menu[1]})!");
-            
-        while (options_menu.Contains(selection) && !gameMode) {
+
+        while (options_menu.Contains(selection) && !gameMode)
+        {
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-            switch(selection)
+            switch (selection)
             {
                 case "p": gameMode = true; break;
                 case "f":
                 {
-                    userCredit += 100; 
+                    userCredit += 100;
                     Console.WriteLine($"Your current credit: {userCredit} $");
-                    Console.WriteLine($"More money? => (Press {options_menu[0]})! or to play (Press {options_menu[1]})!");
+                    Console.WriteLine(
+                        $"More money? => (Press {options_menu[0]})! or to play (Press {options_menu[1]})!");
                     break;
                 }
             }
-        } 
-        
+        }
+
         return userCredit;
     }
-    
+
     /// <summary>
     /// This Method makes and shows an empty grid just to improve the UI with the user
     /// </summary>
-    public static void DisplayEmptyGrid(int dimension)
+    public static void DisplayEmptyGrid(int[,] userArray)
     {
-        int[,] userArray = new int [dimension, dimension];
+    
 
         //Print the upper border (one extra at the beginning and one at the end)
         Console.Write("+");
@@ -76,11 +78,11 @@ public class UI_Methods
         int item = 0;
 
         //fill the array
-        for (int row = 0; row < dimension; row++)
+        for (int row = 0; row < userArray.GetLength(0); row++)
         {
             //print first Character each row
             Console.Write("|");
-            for (int col = 0; col < dimension; col++)
+            for (int col = 0; col < userArray.GetLength(0); col++)
             {
                 if (col % 2 != 0)
                 {
@@ -112,6 +114,12 @@ public class UI_Methods
 
         Console.WriteLine("+");
     }
+
+    const int OPTION_1_LINE = 1;
+    const int OPTION_3_LINES = 3;
+    const int OPTION_6_LINES = 6;
+    const int OPTION_8_LINES = 8;
+
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
@@ -119,13 +127,8 @@ public class UI_Methods
     /// <returns></returns>
     public static int AskForLinesSelection(int userCredit)
     {
-        const int OPTION_1_LINE = 1;
-        const int OPTION_3_LINES = 3;
-        const int OPTION_6_LINES = 6;
-        const int OPTION_8_LINES = 8;
-        
-        List<int> optionsLinesModus = new List<int> { 1,3,6,8 };
-        
+        List<int> optionsLinesModus = new List<int> { 1, 3, 6, 8 };
+
         Console.WriteLine($"How many lines to you want to play?");
         Console.WriteLine($"1 Line  = 1$  (Press {OPTION_1_LINE})");
         Console.WriteLine($"3 Lines = 3$  (Press {OPTION_3_LINES})");
@@ -135,12 +138,11 @@ public class UI_Methods
         bool success;
         int selection_lines;
         int game_modus = 0;
-            
+
         do
         {
-            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString() , out selection_lines);
-        } 
-        while (!success || !optionsLinesModus.Contains(selection_lines));
+            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selection_lines);
+        } while (!success || !optionsLinesModus.Contains(selection_lines));
 
         switch (selection_lines)
         {
@@ -149,70 +151,76 @@ public class UI_Methods
             case OPTION_6_LINES: game_modus = OPTION_6_LINES; break;
             case OPTION_8_LINES: game_modus = OPTION_8_LINES; break;
         }
+
         Console.WriteLine($"Your current credit: {userCredit} and selected bet is {game_modus} Lines");
-        
+
         return game_modus;
     }
 
+  const int MIN_FOR_RANDOM_FUNCTION = 1;
+    const int MAX_FOR_RANDOM_FUNCTION = 3;
+
     /// <summary>
-    /// This method check if we have winners. For this we have 4 options:
-    /// 1. Middle line mode
-    /// 2. All horizontal lines mode
-    /// 3. All vertical lines mode
-    /// 4. 2 diagonals mode
+    ///This method feeds randomly the grid with the values
     /// </summary>
-    /// <param name="userArray"></param>
-    /// <param name="dimension"></param>
-    /// <returns>winnersArray which is a boolean array with the winners options inside</returns>
-    public static bool[] CheckingWinners(int[,] userArray, int dimension)
+    /// <param name="dimension">This needs the dimension to know how many values are needed</param>
+    /// <returns></returns>
+    public static int[,] GeneratingGrid(int dimension)
     {
-        bool[] winnersArray = new bool[4];
-        bool IS_OPTION_1_A_WINNER = true;
-        bool IS_OPTION_2_A_WINNER = true;
-        bool IS_OPTION_3_A_WINNER = false;
-        bool IS_OPTION_4_A_WINNER = false;
+        int[,] userArray = new int [dimension, dimension];
 
-
-        //OPTION 1. Middle line mode
-
-        int middle = dimension / 2;
-        int first = userArray[middle, 0];
-
-        for (int column = 0; column < dimension; column++)
+        //Print the upper border (one extra at the beginning and one at the end)
+        Console.Write("+");
+        for (int column = 0; column < userArray.GetLength(0); column++)
         {
-            if (userArray[middle, column] != first)
-            {
-                IS_OPTION_1_A_WINNER = false;
-                break;
-            }
+            Console.Write("--+--");
         }
-        
-        /// 2. All horizontal lines mode
-        
-        bool stopAll = false;
-        
-        for (int row = 0; row < dimension && !stopAll; row++)
+
+        Console.Write("+");
+        Console.WriteLine();
+
+        int item = 0;
+
+        //fill the array
+        for (int row = 0; row < dimension; row++)
         {
-            int first_of_row = userArray[row, 0];
-            for (int column = 0; column < dimension; column++)
+            //print first Character each row
+            Console.Write("|");
+            for (int col = 0; col < dimension; col++)
             {
-                if (userArray[row, column] != first_of_row)
+                //random generation
+                Random random = new Random();
+                int randomItem = random.Next(MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
+                userArray[row, col] = randomItem;
+
+                if (col % 2 != 0)
                 {
-                    IS_OPTION_2_A_WINNER = false;
-                    stopAll = true;
-                    break;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                 }
-            }
-            
-        }
-        
-        //Assign
-        winnersArray[0] = IS_OPTION_1_A_WINNER;
-        winnersArray[1] = IS_OPTION_2_A_WINNER;
-        winnersArray[2] = IS_OPTION_3_A_WINNER;
-        winnersArray[3] = IS_OPTION_4_A_WINNER;
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
 
-        return winnersArray;
+                //Print the output
+                Console.Write("  " + userArray[row, col] + "  ");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+
+            //print last Character each row
+            Console.Write("|");
+            Console.WriteLine();
+        }
+
+        //Print the bottom border(one extra at the beginning and one at the end)
+        Console.Write("+");
+        for (int column = 0; column < userArray.GetLength(0); column++)
+        {
+            Console.Write("--+--");
+        }
+
+        Console.WriteLine("+");
+
+        return userArray;
     }
-    
 }
