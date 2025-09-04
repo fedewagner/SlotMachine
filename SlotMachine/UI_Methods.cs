@@ -115,49 +115,71 @@ public class UI_Methods
         Console.WriteLine("+");
     }
 
-    const int OPTION_1_LINE = 1;
-    const int OPTION_3_LINES = 3;
-    const int OPTION_6_LINES = 6;
-    const int OPTION_8_LINES = 8;
+    
+    
+  
 
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
     /// <param name="userCredit">Is the user credit</param>
+    /// <param name="optionsLinesModus"></param>
+    /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static int AskForLinesSelection(int userCredit)
+    public static (int gameModus, int userCredit) AskForLinesSelection(int userCredit, List<int> optionsLinesModus, List<int> optionsLinesCosts )
     {
-        List<int> optionsLinesModus = new List<int> { 1, 3, 6, 8 };
-
         Console.WriteLine($"How many lines to you want to play?");
-        Console.WriteLine($"1 Line  = 1$  (Press {OPTION_1_LINE})");
-        Console.WriteLine($"3 Lines = 3$  (Press {OPTION_3_LINES})");
-        Console.WriteLine($"6 Lines = 6$  (Press {OPTION_6_LINES})");
-        Console.WriteLine($"8 Lines = 12$ (Press {OPTION_8_LINES})");
+        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesModus[0]})");
+        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesModus[1]})");
+        Console.WriteLine($"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesModus[2]})");
+        Console.WriteLine($"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesModus[3]})");
 
         bool success;
-        int selection_lines;
-        int game_modus = 0;
+        int selectionLines;
+        int gameModus = 0;
 
         do
         {
-            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selection_lines);
-        } while (!success || !optionsLinesModus.Contains(selection_lines));
+            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
+        } while (!success || !optionsLinesModus.Contains(selectionLines));
 
-        switch (selection_lines)
+        switch (selectionLines)
         {
-            case OPTION_1_LINE: game_modus = OPTION_1_LINE; break;
-            case OPTION_3_LINES: game_modus = OPTION_3_LINES; break;
-            case OPTION_6_LINES: game_modus = OPTION_6_LINES; break;
-            case OPTION_8_LINES: game_modus = OPTION_8_LINES; break;
+            case 1:
+            {
+                gameModus = optionsLinesModus[0]; 
+                userCredit -= optionsLinesCosts[0];
+                break;
+            }
+            case 3:
+            {
+                gameModus = optionsLinesModus[1]; 
+                userCredit -= optionsLinesCosts[1];
+                break;
+            }
+            case 6:
+            {
+                gameModus =  optionsLinesModus[2]; 
+                userCredit -= optionsLinesCosts[2];
+                break;
+            }
+            case 8:
+            {
+                gameModus =  optionsLinesModus[3]; 
+                userCredit -= optionsLinesCosts[3];
+                break;
+            }
         }
 
-        Console.WriteLine($"Your current credit: {userCredit} and selected bet is {game_modus} Lines");
+        Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
 
-        return game_modus;
+        return (gameModus, userCredit);
     }
-
-  const int MIN_FOR_RANDOM_FUNCTION = 1;
+    
+    
+    
+    //Method for creating the user grid with random numbers
+    const int MIN_FOR_RANDOM_FUNCTION = 1;
     const int MAX_FOR_RANDOM_FUNCTION = 3;
 
     /// <summary>
