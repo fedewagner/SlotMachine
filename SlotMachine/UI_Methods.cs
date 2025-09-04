@@ -58,67 +58,7 @@ public class UI_Methods
         return userCredit;
     }
 
-    /// <summary>
-    /// This Method makes and shows an empty grid just to improve the UI with the user
-    /// </summary>
-    public static void DisplayEmptyGrid(int[,] userArray)
-    {
-    
-
-        //Print the upper border (one extra at the beginning and one at the end)
-        Console.Write("+");
-        for (int column = 0; column < userArray.GetLength(0); column++)
-        {
-            Console.Write("--+--");
-        }
-
-        Console.Write("+");
-        Console.WriteLine();
-
-        int item = 0;
-
-        //fill the array
-        for (int row = 0; row < userArray.GetLength(0); row++)
-        {
-            //print first Character each row
-            Console.Write("|");
-            for (int col = 0; col < userArray.GetLength(0); col++)
-            {
-                if (col % 2 != 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    userArray[col, row] = item;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    userArray[col, row] = item;
-                }
-
-                //Print the output
-                Console.Write("  " + userArray[col, row] + "  ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
-
-            //print last Character each row
-            Console.Write("|");
-            Console.WriteLine();
-        }
-
-        //Print the bottom border(one extra at the beginning and one at the end)
-        Console.Write("+");
-        for (int column = 0; column < userArray.GetLength(0); column++)
-        {
-            Console.Write("--+--");
-        }
-
-        Console.WriteLine("+");
-    }
-
-    
-    
-  
-
+   
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>

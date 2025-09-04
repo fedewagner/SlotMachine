@@ -25,9 +25,6 @@
             const int DIMENSION = 3;
             int[,] userArray = new int [DIMENSION, DIMENSION];
 
-            //make and show an empty grid
-            UI_Methods.DisplayEmptyGrid(userArray);
-
             //TO_BE_ADDED: create horizontal method
             //TO_BE_ADDED: create vertical method
             //TO_BE_ADDED: create diagonal method
