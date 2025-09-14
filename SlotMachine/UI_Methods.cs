@@ -91,37 +91,17 @@ public class UI_Methods
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
         } while (!success || !optionsLinesModus.Contains(selectionLines));
 
-        if (selectionLines == optionsLinesModus[0])
+        if (selectionLines == optionsLinesModus[4]) //start with the case of checking out
         {
-            gameModus = optionsLinesModus[0]; 
-            userCredit -= optionsLinesCosts[0];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            gameModus = optionsLinesModus[4];
+            Console.WriteLine("---------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You finished playing with the credit: {userCredit}");
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         
-        else if (selectionLines == optionsLinesModus[1])
-        {
-            gameModus = optionsLinesModus[1];
-            userCredit -= optionsLinesCosts[1];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
-            Console.WriteLine("---------------------------------------------------------------------------");
-        }
-        
-        else if (selectionLines == optionsLinesModus[1])
-        {
-            gameModus = optionsLinesModus[1];
-            userCredit -= optionsLinesCosts[1];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
-            Console.WriteLine("---------------------------------------------------------------------------");
-        }
-        
-        else if (selectionLines == optionsLinesModus[2]){
-            gameModus = optionsLinesModus[2];
-            userCredit -= optionsLinesCosts[2];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
-            Console.WriteLine("---------------------------------------------------------------------------");
-            }
-        
+        //continue with the most expensive case = 12$ and check the money
         else if (selectionLines == optionsLinesModus[3])
         {
             gameModus = optionsLinesModus[3];
@@ -129,13 +109,28 @@ public class UI_Methods
             Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
-        else if (selectionLines == optionsLinesModus[4])
+        
+        else if (selectionLines == optionsLinesModus[2])
         {
-            gameModus = optionsLinesModus[4];
+            gameModus = optionsLinesModus[2];
+            userCredit -= optionsLinesCosts[2];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"You finished playing with the credit: {userCredit}");
-            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        
+        else if (selectionLines == optionsLinesModus[1])
+        {
+            gameModus = optionsLinesModus[1];
+            userCredit -= optionsLinesCosts[1];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+        }
+        
+        else if (selectionLines == optionsLinesModus[0])
+        {
+            gameModus = optionsLinesModus[0]; 
+            userCredit -= optionsLinesCosts[0];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         

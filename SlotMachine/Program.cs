@@ -74,14 +74,9 @@
             }
             
             
-
-
-        
+            //check if there is enough money for each game modus to play
             //insert more money option
-           
-
-            //NEXT STEP: add in the game_modus an array with 0 and 1 for each line which is active and not
-            //NEXT STEP: use that array to multiply the winning lines for a fix amount
+            
         }
     }
 }
