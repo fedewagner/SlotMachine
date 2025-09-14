@@ -13,7 +13,7 @@
             */
 
             //constants
-            const int WINNERDELTA = 100;
+            const int WINNERDELTA = 50;
             const int DIMENSION = 3;
 
             //options for the game modus

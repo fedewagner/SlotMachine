@@ -20,7 +20,9 @@ public class Logic
         }
 
         wonByMiddleLine = winnerdelta;
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"Well done, you got {wonByMiddleLine}$ from the middle line!");
+        Console.ForegroundColor = ConsoleColor.Gray;
         return (true, wonByMiddleLine);
     }
 
@@ -54,7 +56,9 @@ public class Logic
 
         if (anyRowWinning)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!");
+            Console.ForegroundColor = ConsoleColor.Gray;
             return (true, wonByHorizontalLines);
             ; //a column is winning
         }
@@ -92,7 +96,9 @@ public class Logic
 
         if (anyColumnWinning)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Well done, you got {wonByVerticalLines}$ from the vertical lines!");
+            Console.ForegroundColor = ConsoleColor.Gray;
             return (true, wonByVerticalLines); //a column is winning
         }
 
@@ -142,7 +148,9 @@ public class Logic
 
         if (isAnyDiagonalLineWinning)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Well done, you got {wonByDiagonals}$ from the diagonal lines!");
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         return (isAnyDiagonalLineWinning, wonByDiagonals);
