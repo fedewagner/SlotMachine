@@ -75,7 +75,7 @@ public class UI_Methods
     public static (int gameModus, int userCredit) AskForLinesSelection(int userCredit, List<int> optionsLinesModus, List<int> optionsLinesCosts )
     {
         Console.WriteLine("---------------------------------------------------------------------------");
-        Console.WriteLine("Do you want to play again? If yes, then select one option");
+        Console.WriteLine("How many lines would you like to play? Please select one option");
         Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesModus[0]})");
         Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesModus[1]})");
         Console.WriteLine($"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesModus[2]})");
