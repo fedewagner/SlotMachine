@@ -87,52 +87,54 @@ public class UI_Methods
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
         } while (!success || !optionsLinesModus.Contains(selectionLines));
 
-        switch (selectionLines)
+        if (selectionLines == optionsLinesModus[0])
         {
-            case 1:
-            {
-                gameModus = optionsLinesModus[0]; 
-                userCredit -= optionsLinesCosts[0];
-                break;
-            }
-            case 3:
-            {
-                gameModus = optionsLinesModus[1]; 
-                userCredit -= optionsLinesCosts[1];
-                break;
-            }
-            case 6:
-            {
-                gameModus =  optionsLinesModus[2]; 
-                userCredit -= optionsLinesCosts[2];
-                break;
-            }
-            case 8:
-            {
-                gameModus =  optionsLinesModus[3]; 
-                userCredit -= optionsLinesCosts[3];
-                break;
-            }
-            case 9:
-            {
-                gameModus =  optionsLinesModus[4]; 
-                break;
-            }
+            gameModus = optionsLinesModus[0]; 
+            userCredit -= optionsLinesCosts[0];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
         }
-
-        if (gameModus == optionsLinesModus[4])
+        
+        else if (selectionLines == optionsLinesModus[1])
         {
+            gameModus = optionsLinesModus[1];
+            userCredit -= optionsLinesCosts[1];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+        }
+        
+        else if (selectionLines == optionsLinesModus[1])
+        {
+            gameModus = optionsLinesModus[1];
+            userCredit -= optionsLinesCosts[1];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+        }
+        
+        else if (selectionLines == optionsLinesModus[2]){
+            gameModus = optionsLinesModus[2];
+            userCredit -= optionsLinesCosts[2];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+            }
+        
+        else if (selectionLines == optionsLinesModus[3])
+        {
+            gameModus = optionsLinesModus[3];
+            userCredit -= optionsLinesCosts[3];
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+        }
+        else if (selectionLines == optionsLinesModus[4])
+        {
+            gameModus = optionsLinesModus[4];
             Console.WriteLine("---------------------------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"You finished playing with the credit: {userCredit}");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
-            return (gameModus, userCredit);
         }
         
-        Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
-        Console.WriteLine("---------------------------------------------------------------------------");
-
         return (gameModus, userCredit);
     }
     
