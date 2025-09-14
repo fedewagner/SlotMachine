@@ -30,7 +30,7 @@
             const int COST_8_LINES = 12;
 
             //welcome and interact with UI to add credit
-            int userCredit = UI_Methods.WelcomeUserAndAddSomeCredit();
+            int userCredit = UI_Methods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
 
             // select dimension of the grid
             int[,] userArray = new int [DIMENSION, DIMENSION];
