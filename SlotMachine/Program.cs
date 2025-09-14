@@ -14,13 +14,14 @@
 
             //constants
             const int WINNERDELTA = 10;
-            const int DIMENSION = 3;
+            const int DIMENSION = 2;
 
             //options for the game modus
             const int OPTION_1_LINE = 1;
             const int OPTION_3_LINES = 3;
             const int OPTION_6_LINES = 6;
             const int OPTION_8_LINES = 8;
+            const int OPTION_CHECK_OUT = 9;
 
             //cost of each modus
             const int COST_1_LINE = 1;
@@ -41,63 +42,43 @@
                 6L = 8$ or
                 8L = 12$
             */
-
             List<int> optionsLinesModus = new List<int>
-                { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES };
+                { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
             List<int> optionsLinesCosts = new List<int> { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
 
-            // defining the game modus  
-            (int gameModus, userCredit) =
-                UI_Methods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
 
-            //feed randomly the grid with the values
-            userArray = UI_Methods.GeneratingGrid(DIMENSION);
-
-            //check all the combinations
-            switch (gameModus)
+            while (userCredit > 0)
             {
-                case OPTION_1_LINE:
-                    if (Logic.CheckingHorizontalLine(userArray))
-                    {
-                        userCredit += WINNERDELTA;
-                        Console.WriteLine($"You won {WINNERDELTA}$!");
-                    }
+                // defining the game modus  
+                (int gameModus, userCredit) =
+                    UI_Methods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
 
+                if (gameModus == OPTION_CHECK_OUT)
+                {
                     break;
-                case OPTION_3_LINES:
-                    if (Logic.CheckingAllHorizontalLines(userArray))
-                    {
-                        userCredit += WINNERDELTA;
-                        Console.WriteLine($"You won {WINNERDELTA}$!");
-                    }
+                }
 
-                    break;
-                case OPTION_6_LINES:
-                    if (Logic.CheckingAllHorizontalLines(userArray) || Logic.CheckingAllVerticalLines(userArray))
-                    {
-                        userCredit += WINNERDELTA;
-                        Console.WriteLine($"You won {WINNERDELTA}$!");
-                    }
+                //feed randomly the grid with the values
+                userArray = UI_Methods.GeneratingGrid(DIMENSION);
 
-                    break;
-                case OPTION_8_LINES:
-                    if (Logic.CheckingAllHorizontalLines(userArray) || Logic.CheckingAllVerticalLines(userArray) ||
-                        Logic.CheckingDiagagonals(userArray))
-                    {
-                        userCredit += WINNERDELTA;
-                        Console.WriteLine($"You won {WINNERDELTA}$!");
-                    }
-
-                    break;
+                //Checking the combinations and calculating the new user credit
+                userCredit = UI_Methods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus,
+                    optionsLinesCosts, userArray, WINNERDELTA);
             }
 
-            //print the new credit
-            Console.WriteLine($"The user credit is: {userCredit}");
+            if (userCredit <= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"You finished playing with the credit: {userCredit}");
+                Console.Write("You don't have creadits to play, please insert more money to keep playing");
+            }
+            
+            
 
 
-            //check out money option
+        
             //insert more money option
-            //ask if he want to keep playing or checkout the money
+           
 
             //NEXT STEP: add in the game_modus an array with 0 and 1 for each line which is active and not
             //NEXT STEP: use that array to multiply the winning lines for a fix amount
