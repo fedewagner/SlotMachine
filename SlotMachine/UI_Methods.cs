@@ -108,7 +108,7 @@ public class UiMethods
             gameMode = optionsLinesMode[4];
             Console.WriteLine("---------------------------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"You finished playing with the credit: {userCredit}");
+            Console.WriteLine($"You finished playing with the credit: {userCredit}$");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
         }
@@ -202,31 +202,7 @@ public class UiMethods
 
 
 
-    /// <summary>
-    /// Method for generating the random numbers
-    /// </summary>
-    /// <param name="dimension"></param>
-    /// <param name="minForRandomFunction"></param>
-    /// <param name="maxForRandomFunction"></param>
-    /// <returns></returns>
-    public static int[,] GeneratingElementsForGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
-    {
-        int[,] userArray = new int [dimension, dimension];
-
-        for (int row = 0; row < userArray.GetLength(0); row++)
-        {
-            for (int col = 0; col < userArray.GetLength(1); col++)
-            {
-                //random generation
-                Random random = new Random();
-                int randomItem =
-                    random.Next(minForRandomFunction,  maxForRandomFunction +  1); //+1 is to include also the max value as an option in the random function
-                userArray[row, col] = randomItem;
-            }
-        }
-
-        return userArray;
-    }
+   
 
 
     ///  <summary>
@@ -400,7 +376,7 @@ public class UiMethods
         
         if (userCredit != 0){
         Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine($"The user credit is: {userCredit}");
+        Console.WriteLine($"The user credit is: {userCredit}$");
         Console.ForegroundColor = ConsoleColor.Gray;
         }
         return userCredit;
@@ -410,7 +386,7 @@ public class UiMethods
     public static void AskingUserToLeaveBecauseOfNoMoneyLeft(int userCredit)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"You finished playing with the credit: {userCredit}");
+        Console.WriteLine($"You finished playing with the credit: {userCredit}$");
         Console.Write("You don't have credits to play, please insert more money to keep playing");
     }
 }

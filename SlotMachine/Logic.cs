@@ -2,6 +2,33 @@ namespace SlotMachine;
 
 public class Logic
 {
+    /// <summary>
+    /// Method for generating the random numbers
+    /// </summary>
+    /// <param name="dimension"></param>
+    /// <param name="minForRandomFunction"></param>
+    /// <param name="maxForRandomFunction"></param>
+    /// <returns></returns>
+    public static int[,] GeneratingElementsForGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
+    {
+        int[,] userArray = new int [dimension, dimension];
+
+        for (int row = 0; row < userArray.GetLength(0); row++)
+        {
+            for (int col = 0; col < userArray.GetLength(1); col++)
+            {
+                //random generation
+                Random random = new Random();
+                int randomItem =
+                    random.Next(minForRandomFunction,  maxForRandomFunction +  1); //+1 is to include also the max value as an option in the random function
+                userArray[row, col] = randomItem;
+            }
+        }
+
+        return userArray;
+    }
+    
+    
     //Methods area
     // check only one middle line
     public static (bool, int, string) CheckingHorizontalLine(int[,] userArray, int winnerdelta)

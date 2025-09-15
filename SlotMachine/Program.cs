@@ -73,7 +73,7 @@
                 if (moneyIsEnough)
                 {
                     //feed randomly the grid with the values
-                    int[,] userArray = UiMethods.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION,
+                    int[,] userArray = Logic.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION,
                         MAX_FOR_RANDOM_FUNCTION);
 
                     //print the grid with the values
