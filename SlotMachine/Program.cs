@@ -16,9 +16,14 @@
             const int WINNERDELTA = 50;
             const int DIMENSION = 3;
             
+            //const for WelcomeUser Method
+            const int CREDIT_DELTA = 100;
+            const string KEY_FOR_ADDING_CREDIT = "f";
+            const string KEY_FOR_GAMING = "p";
+            
             //Min and max
             const int MIN_FOR_RANDOM_FUNCTION = 1;
-            const int MAX_FOR_RANDOM_FUNCTION = 4;
+            const int MAX_FOR_RANDOM_FUNCTION = 9; //this value will be also include. Recommendation below 9
 
             //options for the game modus
             const int OPTION_1_LINE = 1;
@@ -34,7 +39,7 @@
             const int COST_8_LINES = 12;
 
             //welcome and interact with UI to add credit
-            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
+            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA, CREDIT_DELTA, KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING);
 
             /*
              Select the bet:
@@ -52,11 +57,12 @@
             List<int> optionsLinesCosts = new List<int> 
                 { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
 
-
             while (userCredit > 0)
             {
+                bool moneyIsEnough;
+                
                 // defining the game modus  
-                (int gameModus, userCredit) =
+                (int gameModus, userCredit, moneyIsEnough) =
                     UiMethods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
 
                 if (gameModus == OPTION_CHECK_OUT)
@@ -64,15 +70,19 @@
                     break;
                 }
 
-                //feed randomly the grid with the values
-                int[,] userArray = UiMethods.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
-                
-                //print the grid with the values
-                UiMethods.PrintingGrid(userArray);
+                if (moneyIsEnough)
+                {
+                    //feed randomly the grid with the values
+                    int[,] userArray = UiMethods.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION,
+                        MAX_FOR_RANDOM_FUNCTION);
 
-                //Checking the combinations and calculating the new user credit
-                userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
-                    WINNERDELTA);
+                    //print the grid with the values
+                    UiMethods.PrintingGrid(userArray);
+
+                    //Checking the combinations and calculating the new user credit
+                    userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
+                        WINNERDELTA);
+                }
             }
 
             //check if there is enough money for each game modus to play
