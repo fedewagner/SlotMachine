@@ -12,13 +12,14 @@ public class Logic
     public static int[,] GeneratingElementsForGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
     {
         int[,] userArray = new int [dimension, dimension];
-
+        Random random = new Random();
+        
         for (int row = 0; row < userArray.GetLength(0); row++)
         {
             for (int col = 0; col < userArray.GetLength(1); col++)
             {
+                
                 //random generation
-                Random random = new Random();
                 int randomItem =
                     random.Next(minForRandomFunction,
                         maxForRandomFunction +
