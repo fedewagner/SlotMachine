@@ -8,7 +8,7 @@ public class UiMethods
     /// This methods welcomes the user and give the option to add credit or go into play mode.
     /// </summary>
     /// <returns></returns>
-    public static int WelcomeUserAndAddSomeCredit(int winningdelta, int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT,
+    public static int WelcomeUserAndAddSomeCredit(int WINNING_DELTA, int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT,
         string KEY_FOR_GAMING)
     {
         //variables
@@ -24,7 +24,7 @@ public class UiMethods
         Console.WriteLine("Welcome to the Slot Machine!");
         Console.WriteLine("You can play for Horizontal, Vertical and Diagonal Lines");
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Everytime you get a line, you'll win {winningdelta}$!!!");
+        Console.WriteLine($"Everytime you get a line, you'll win {WINNING_DELTA}$!!!");
         Console.ForegroundColor = ConsoleColor.Gray;
 
         //Add initial credit

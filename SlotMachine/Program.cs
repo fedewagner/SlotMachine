@@ -13,7 +13,7 @@
             */
 
             //constants
-            const int WINNERDELTA = 50;
+            const int WINNING_DELTA = 50;
             const int DIMENSION = 3;
             
             //const for WelcomeUser Method
@@ -39,7 +39,7 @@
             const int COST_8_LINES = 12;
 
             //welcome and interact with UI to add credit
-            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA, CREDIT_DELTA, KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING);
+            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNING_DELTA, CREDIT_DELTA, KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING);
 
             /*
              Select the bet:
@@ -81,7 +81,7 @@
 
                     //Checking the combinations and calculating the new user credit
                     userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
-                        WINNERDELTA);
+                        WINNING_DELTA);
                 }
             }
 
