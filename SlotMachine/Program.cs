@@ -16,7 +16,7 @@
             const int WINNERDELTA = 50;
             const int DIMENSION = 3;
             
-            //Method for creating the user grid with random numbers
+            //Min and max
             const int MIN_FOR_RANDOM_FUNCTION = 1;
             const int MAX_FOR_RANDOM_FUNCTION = 9;
 
@@ -34,7 +34,7 @@
             const int COST_8_LINES = 12;
 
             //welcome and interact with UI to add credit
-            int userCredit = UI_Methods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
+            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
 
             // select dimension of the grid
             int[,] userArray = new int [DIMENSION, DIMENSION];
@@ -55,7 +55,7 @@
             {
                 // defining the game modus  
                 (int gameModus, userCredit) =
-                    UI_Methods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
+                    UiMethods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
 
                 if (gameModus == OPTION_CHECK_OUT)
                 {
@@ -63,23 +63,20 @@
                 }
 
                 //feed randomly the grid with the values
-                userArray = UI_Methods.GeneratingGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
+                userArray = UiMethods.GeneratingGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
 
                 //Checking the combinations and calculating the new user credit
-                userCredit = UI_Methods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
+                userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
                     WINNERDELTA);
             }
 
-            
+            //check if there is enough money for each game modus to play
             if (userCredit <= 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"You finished playing with the credit: {userCredit}");
-                Console.Write("You don't have credits to play, please insert more money to keep playing");
+                UiMethods.AskingUserToLeaveBecauseOfNoMoneyLeft(userCredit);
             }
             
             
-            //check if there is enough money for each game modus to play
             //insert more money option
             
         }

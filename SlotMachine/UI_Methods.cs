@@ -1,6 +1,6 @@
 namespace SlotMachine;
 
-public class UI_Methods
+public class UiMethods
 {
     const int CREDIT_DELTA = 100;
     const string KEY_FOR_ADDING_CREDIT = "f";
@@ -20,7 +20,7 @@ public class UI_Methods
         string selection;
 
         //define keys for user to be pressed
-        List<string> options_menu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
+        List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
 
 
         //give info to user
@@ -33,7 +33,7 @@ public class UI_Methods
         //Add initial credit
         do
         {
-            Console.WriteLine($"Please enter some credit (Press {options_menu[0]})!");
+            Console.WriteLine($"Please enter some credit (Press {optionsMenu[0]})!");
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
         } while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
 
@@ -41,10 +41,10 @@ public class UI_Methods
         Console.WriteLine($"Your current credit: {userCredit} $");
 
         //add mode credit or go into game mode
-        Console.WriteLine($"In case you want to add more money please insert banknote (Press {options_menu[0]})!");
-        Console.WriteLine($"Otherwise, to play (Press {options_menu[1]})!");
+        Console.WriteLine($"In case you want to add more money please insert banknote (Press {optionsMenu[0]})!");
+        Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
 
-        while (options_menu.Contains(selection) && !gameMode)
+        while (optionsMenu.Contains(selection) && !gameMode)
         {
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
             switch (selection)
@@ -55,7 +55,7 @@ public class UI_Methods
                     userCredit += 100;
                     Console.WriteLine($"Your current credit: {userCredit} $");
                     Console.WriteLine(
-                        $"More money? => (Press {options_menu[0]})! or to play (Press {options_menu[1]})!");
+                        $"More money? => (Press {optionsMenu[0]})! or to play (Press {optionsMenu[1]})!");
                     break;
                 }
             }
@@ -69,31 +69,31 @@ public class UI_Methods
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
     /// <param name="userCredit">Is the user credit</param>
-    /// <param name="optionsLinesModus"></param>
+    /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int gameModus, int userCredit) AskForLinesSelection(int userCredit, List<int> optionsLinesModus, List<int> optionsLinesCosts )
+    public static (int gameModus, int userCredit) AskForLinesSelection(int userCredit, List<int> optionsLinesMode, List<int> optionsLinesCosts )
     {
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine("How many lines would you like to play? Please select one option");
-        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesModus[0]})");
-        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesModus[1]})");
-        Console.WriteLine($"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesModus[2]})");
-        Console.WriteLine($"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesModus[3]})");
-        Console.WriteLine($"In case you want to check out the money then press '{optionsLinesModus[4]}'");
+        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesMode[0]})");
+        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesMode[1]})");
+        Console.WriteLine($"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesMode[2]})");
+        Console.WriteLine($"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesMode[3]})");
+        Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
 
         bool success;
         int selectionLines;
-        int gameModus = 0;
+        int gameMode = 0;
         
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
-        } while (!success || !optionsLinesModus.Contains(selectionLines));
+        } while (!success || !optionsLinesMode.Contains(selectionLines));
 
-        if (selectionLines == optionsLinesModus[4]) //start with the case of checking out
+        if (selectionLines == optionsLinesMode[4]) //start with the case of checking out
         {
-            gameModus = optionsLinesModus[4];
+            gameMode = optionsLinesMode[4];
             Console.WriteLine("---------------------------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"You finished playing with the credit: {userCredit}");
@@ -102,48 +102,50 @@ public class UI_Methods
         }
         
         //continue with the most expensive case = 12$ and check the money
-        else if (selectionLines == optionsLinesModus[3])
+        else if (selectionLines == optionsLinesMode[3])
         {
-            gameModus = optionsLinesModus[3];
+            gameMode = optionsLinesMode[3];
             userCredit -= optionsLinesCosts[3];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         
-        else if (selectionLines == optionsLinesModus[2])
+        else if (selectionLines == optionsLinesMode[2])
         {
-            gameModus = optionsLinesModus[2];
+            gameMode = optionsLinesMode[2];
             userCredit -= optionsLinesCosts[2];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         
-        else if (selectionLines == optionsLinesModus[1])
+        else if (selectionLines == optionsLinesMode[1])
         {
-            gameModus = optionsLinesModus[1];
+            gameMode = optionsLinesMode[1];
             userCredit -= optionsLinesCosts[1];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         
-        else if (selectionLines == optionsLinesModus[0])
+        else if (selectionLines == optionsLinesMode[0])
         {
-            gameModus = optionsLinesModus[0]; 
+            gameMode = optionsLinesMode[0]; 
             userCredit -= optionsLinesCosts[0];
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         
-        return (gameModus, userCredit);
+        return (gameMode, userCredit);
     }
-    
-    
-    /// <summary>
-    ///This method feeds randomly the grid with the values
-    /// </summary>
-    /// <param name="dimension">This needs the dimension to know how many values are needed</param>
-    /// <returns></returns>
-    public static int[,] GeneratingGrid(int dimension, int MIN_FOR_RANDOM_FUNCTION, int MAX_FOR_RANDOM_FUNCTION)
+
+
+    ///  <summary>
+    /// This method feeds randomly the grid with the values
+    ///  </summary>
+    ///  <param name="dimension">This needs the dimension to know how many values are needed</param>
+    ///  <param name="minForRandomFunction">The minimum value for the random function</param>
+    ///  <param name="maxForRandomFunction">The maximum value for the random function</param>
+    ///  <returns></returns>
+    public static int[,] GeneratingGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
     {
         int[,] userArray = new int [dimension, dimension];
 
@@ -170,7 +172,7 @@ public class UI_Methods
             {
                 //random generation
                 Random random = new Random();
-                int randomItem = random.Next(MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
+                int randomItem = random.Next(minForRandomFunction, maxForRandomFunction + 1); //+1 is to include also the max value as an option in the random function
                 userArray[row, col] = randomItem;
 
                 if (col % 2 != 0)
@@ -208,20 +210,20 @@ public class UI_Methods
     /// <summary>
     /// This method is to check all combinations, calculate the total won money and print it in the screen
     /// </summary>
-    /// <param name="gameModus"></param>
+    /// <param name="gameMode"></param>
     /// <param name="userCredit"></param>
-    /// <param name="optionsLinesModus"></param>
+    /// <param name="optionsLinesMode"></param>
     /// <param name="userArray"></param>
-    /// <param name="winnerdelta"></param>
+    /// <param name="winnersDelta"></param>
     /// <returns></returns>
-    public static int CheckingTheCombinations(int gameModus, int userCredit, List<int> optionsLinesModus, int[,] userArray, int winnerdelta )
+    public static int CheckingTheCombinations(int gameMode, int userCredit, List<int> optionsLinesMode, int[,] userArray, int winnersDelta )
     {
         
         //With this game Modus we only check the Middle horizontal line
-        if (gameModus == optionsLinesModus[0])
+        if (gameMode == optionsLinesMode[0])
         {
             //From middle horizontal Line
-            (var isMiddleLineAWinner, int wonByHorizontalLine, string messageMiddleLine) = Logic.CheckingHorizontalLine(userArray, winnerdelta);
+            (var isMiddleLineAWinner, int wonByHorizontalLine, string messageMiddleLine) = Logic.CheckingHorizontalLine(userArray, winnersDelta);
             if (isMiddleLineAWinner)
             {
                 userCredit += wonByHorizontalLine;
@@ -229,10 +231,10 @@ public class UI_Methods
             }
         }
         //With this game Modus we only check the all horizontal lines
-        else if (gameModus == optionsLinesModus[1])
+        else if (gameMode == optionsLinesMode[1])
         {
             //From Horizonal Lines
-            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) = Logic.CheckingAllHorizontalLines(userArray, winnerdelta);
+            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) = Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
             if (isAnyHorizontalLineWinning)
             {
                 var totalWon = wonByHorizontalLines; 
@@ -245,15 +247,15 @@ public class UI_Methods
         }
         
         //With this game Modus we only check the all vertical and horizontal lines
-        else if (gameModus == optionsLinesModus[2])
+        else if (gameMode == optionsLinesMode[2])
         {
             //From Horizonal Lines
             (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
-                Logic.CheckingAllHorizontalLines(userArray, winnerdelta);
+                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
             
             //From Vertical Lines
             (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
-                Logic.CheckingAllVerticalLines(userArray, winnerdelta);
+                Logic.CheckingAllVerticalLines(userArray, winnersDelta);
             
             if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning)
             {
@@ -275,20 +277,20 @@ public class UI_Methods
             }
         }
         
-        //With this game Modus we only check the all vertical and horizontal lines and diagonals
-        else if (gameModus == optionsLinesModus[3])
+        //With this gameMode we only check the all vertical and horizontal lines and diagonals
+        else if (gameMode == optionsLinesMode[3])
         {
             //From all Horizonal Lines
             (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
-                Logic.CheckingAllHorizontalLines(userArray, winnerdelta);
+                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
             
             //From Vertical Lines
             (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
-                Logic.CheckingAllVerticalLines(userArray, winnerdelta);
+                Logic.CheckingAllVerticalLines(userArray, winnersDelta);
             
             //From Diagonal Lines
             (var isAnyDiagonalLineWinning, int wonByDiagonals, string messageDLines) =
-                Logic.CheckingDiagagonals(userArray, winnerdelta);
+                Logic.CheckingDiagagonals(userArray, winnersDelta);
             
             
             if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning ||
@@ -319,5 +321,12 @@ public class UI_Methods
         Console.WriteLine($"The user credit is: {userCredit}");
         return userCredit;
        
+    }
+
+    public static void AskingUserToLeaveBecauseOfNoMoneyLeft(int userCredit)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"You finished playing with the credit: {userCredit}");
+        Console.Write("You don't have credits to play, please insert more money to keep playing");
     }
 }
