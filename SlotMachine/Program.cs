@@ -15,6 +15,10 @@
             //constants
             const int WINNERDELTA = 50;
             const int DIMENSION = 3;
+            
+            //Method for creating the user grid with random numbers
+            const int MIN_FOR_RANDOM_FUNCTION = 1;
+            const int MAX_FOR_RANDOM_FUNCTION = 9;
 
             //options for the game modus
             const int OPTION_1_LINE = 1;
@@ -59,18 +63,19 @@
                 }
 
                 //feed randomly the grid with the values
-                userArray = UI_Methods.GeneratingGrid(DIMENSION);
+                userArray = UI_Methods.GeneratingGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
 
                 //Checking the combinations and calculating the new user credit
-                userCredit = UI_Methods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus,
-                    optionsLinesCosts, userArray, WINNERDELTA);
+                userCredit = UI_Methods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
+                    WINNERDELTA);
             }
 
+            
             if (userCredit <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"You finished playing with the credit: {userCredit}");
-                Console.Write("You don't have creadits to play, please insert more money to keep playing");
+                Console.Write("You don't have credits to play, please insert more money to keep playing");
             }
             
             

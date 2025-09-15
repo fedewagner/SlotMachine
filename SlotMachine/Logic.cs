@@ -4,8 +4,9 @@ public class Logic
 {
     //Methods area
     // check only one middle line
-    public static (bool, int) CheckingHorizontalLine(int[,] userArray, int winnerdelta)
+    public static (bool, int, string) CheckingHorizontalLine(int[,] userArray, int winnerdelta)
     {
+        string message = "";
         int wonByMiddleLine;
         int middleRow = userArray.GetLength(0) / 2;
         int columns = userArray.GetLength(1);
@@ -15,21 +16,20 @@ public class Logic
             if (userArray[middleRow, column] != first)
             {
                 wonByMiddleLine = 0;
-                return (false, wonByMiddleLine);
+                return (false, wonByMiddleLine, message);
             }
         }
 
         wonByMiddleLine = winnerdelta;
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Well done, you got {wonByMiddleLine}$ from the middle line!");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        return (true, wonByMiddleLine);
+        message = $"Well done, you got {wonByMiddleLine}$ from the middle line!";
+        return (true, wonByMiddleLine, message);
     }
 
 
     //check all horizontal Lines
-    public static (bool, int) CheckingAllHorizontalLines(int[,] userArray, int winnerdelta)
+    public static (bool, int, string) CheckingAllHorizontalLines(int[,] userArray, int winnerdelta)
     {
+        string message = "";
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByHorizontalLines = 0;
@@ -56,19 +56,18 @@ public class Logic
 
         if (anyRowWinning)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            return (true, wonByHorizontalLines);
+            message = $"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!";
+            return (true, wonByHorizontalLines, message);
             ; //a column is winning
         }
 
-        return (false, wonByHorizontalLines); //no column winning
+        return (false, wonByHorizontalLines, message); //no column winning
     }
 
     //check all Vertical Lines
-    public static (bool, int) CheckingAllVerticalLines(int[,] userArray, int winnerdelta)
+    public static (bool, int, string) CheckingAllVerticalLines(int[,] userArray, int winnerdelta)
     {
+        string message = "";
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByVerticalLines = 0;
@@ -96,17 +95,17 @@ public class Logic
 
         if (anyColumnWinning)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Well done, you got {wonByVerticalLines}$ from the vertical lines!");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            return (true, wonByVerticalLines); //a column is winning
+            message = $"Well done, you got {wonByVerticalLines}$ from the vertical lines!";
+
+            return (true, wonByVerticalLines, message); //a column is winning
         }
 
-        return (false, wonByVerticalLines); //no column winning
+        return (false, wonByVerticalLines, message); //no column winning
     }
 
-    public static (bool, int) CheckingDiagagonals(int[,] userArray, int winningdelta)
+    public static (bool, int, string) CheckingDiagagonals(int[,] userArray, int winningdelta)
     {
+        string message = "";
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         bool isDiagonal1AWinner = true;
@@ -148,11 +147,9 @@ public class Logic
 
         if (isAnyDiagonalLineWinning)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Well done, you got {wonByDiagonals}$ from the diagonal lines!");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            message = $"Well done, you got {wonByDiagonals}$ from the diagonal lines!";
         }
 
-        return (isAnyDiagonalLineWinning, wonByDiagonals);
+        return (isAnyDiagonalLineWinning, wonByDiagonals, message);
     }
 }
