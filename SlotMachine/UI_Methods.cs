@@ -34,11 +34,15 @@ public class UiMethods
         } while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
 
         userCredit += CREDIT_DELTA;
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine($"Your current credit: {userCredit} $");
+        Console.ForegroundColor = ConsoleColor.Gray;
 
         //add mode credit or go into game mode
         Console.WriteLine($"In case you want to add more money please insert banknote (Press {optionsMenu[0]})!");
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
+        Console.ForegroundColor = ConsoleColor.Gray;
 
         while (optionsMenu.Contains(selection) && !gameMode)
         {
@@ -49,9 +53,12 @@ public class UiMethods
                 case "f":
                 {
                     userCredit += 100;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine($"Your current credit: {userCredit} $");
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine(
                         $"More money? => (Press {optionsMenu[0]})! or to play (Press {optionsMenu[1]})!");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     break;
                 }
             }
@@ -75,13 +82,16 @@ public class UiMethods
         
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine("How many lines would you like to play? Please select one option");
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesMode[0]})");
         Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesMode[1]})");
         Console.WriteLine(
             $"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesMode[2]})");
         Console.WriteLine(
             $"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesMode[3]})");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
+        Console.ForegroundColor = ConsoleColor.Gray;
         
         bool success;
         int selectionLines;
@@ -387,7 +397,12 @@ public class UiMethods
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
         }
+        
+        if (userCredit != 0){
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine($"The user credit is: {userCredit}");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        }
         return userCredit;
        
     }
