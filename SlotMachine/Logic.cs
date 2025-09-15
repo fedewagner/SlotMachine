@@ -20,15 +20,17 @@ public class Logic
                 //random generation
                 Random random = new Random();
                 int randomItem =
-                    random.Next(minForRandomFunction,  maxForRandomFunction +  1); //+1 is to include also the max value as an option in the random function
+                    random.Next(minForRandomFunction,
+                        maxForRandomFunction +
+                        1); //+1 is to include also the max value as an option in the random function
                 userArray[row, col] = randomItem;
             }
         }
 
         return userArray;
     }
-    
-    
+
+
     //Methods area
     // check only one middle line
     public static (bool, int, string) CheckingHorizontalLine(int[,] userArray, int winnerdelta)

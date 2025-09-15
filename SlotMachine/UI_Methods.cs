@@ -8,7 +8,8 @@ public class UiMethods
     /// This methods welcomes the user and give the option to add credit or go into play mode.
     /// </summary>
     /// <returns></returns>
-    public static int WelcomeUserAndAddSomeCredit(int winningdelta, int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT, string KEY_FOR_GAMING)
+    public static int WelcomeUserAndAddSomeCredit(int winningdelta, int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT,
+        string KEY_FOR_GAMING)
     {
         //variables
         int userCredit = 0;
@@ -75,11 +76,12 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int gameModus, int userCredit, bool isMoneyEnoght) AskForLinesSelection(int userCredit, List<int> optionsLinesMode,
+    public static (int gameModus, int userCredit, bool isMoneyEnoght) AskForLinesSelection(int userCredit,
+        List<int> optionsLinesMode,
         List<int> optionsLinesCosts)
     {
         bool isMoneyEnough = true;
-        
+
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine("How many lines would you like to play? Please select one option");
         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -92,11 +94,11 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
         Console.ForegroundColor = ConsoleColor.Gray;
-        
+
         bool success;
         int selectionLines;
         int gameMode = 0;
-        
+
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
@@ -122,7 +124,7 @@ public class UiMethods
                 gameMode = optionsLinesMode[3];
                 userCredit -= optionsLinesCosts[3];
                 Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
-                Console.WriteLine("---------------------------------------------------------------------------"); 
+                Console.WriteLine("---------------------------------------------------------------------------");
             }
             else
             {
@@ -132,7 +134,6 @@ public class UiMethods
                 Console.WriteLine("Please select another option");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
-
         }
 
         else if (selectionLines == optionsLinesMode[2])
@@ -153,7 +154,6 @@ public class UiMethods
                 Console.WriteLine("Please select another option");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
-            
         }
 
         else if (selectionLines == optionsLinesMode[1])
@@ -193,16 +193,11 @@ public class UiMethods
                 Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {optionsLinesCosts[0]}$");
                 Console.WriteLine("Please select another option");
                 Console.ForegroundColor = ConsoleColor.Gray;
-
             }
         }
-            
+
         return (gameMode, userCredit, isMoneyEnough);
     }
-
-
-
-   
 
 
     ///  <summary>
@@ -271,14 +266,15 @@ public class UiMethods
     /// <param name="userArray"></param>
     /// <param name="winnersDelta"></param>
     /// <returns></returns>
-    public static int CheckingTheCombinations(int gameMode, int userCredit, List<int> optionsLinesMode, int[,] userArray, int winnersDelta )
+    public static int CheckingTheCombinations(int gameMode, int userCredit, List<int> optionsLinesMode,
+        int[,] userArray, int winnersDelta)
     {
-        
         //With this game Modus we only check the Middle horizontal line
         if (gameMode == optionsLinesMode[0])
         {
             //From middle horizontal Line
-            (var isMiddleLineAWinner, int wonByHorizontalLine, string messageMiddleLine) = Logic.CheckingHorizontalLine(userArray, winnersDelta);
+            (var isMiddleLineAWinner, int wonByHorizontalLine, string messageMiddleLine) =
+                Logic.CheckingHorizontalLine(userArray, winnersDelta);
             if (isMiddleLineAWinner)
             {
                 userCredit += wonByHorizontalLine;
@@ -289,32 +285,33 @@ public class UiMethods
         else if (gameMode == optionsLinesMode[1])
         {
             //From Horizonal Lines
-            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) = Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
+            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
+                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
             if (isAnyHorizontalLineWinning)
             {
-                var totalWon = wonByHorizontalLines; 
+                var totalWon = wonByHorizontalLines;
                 userCredit += totalWon;
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(messageHLines);    
+                Console.WriteLine(messageHLines);
                 Console.WriteLine($"You won {totalWon}$!");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
         }
-        
+
         //With this game Modus we only check the all vertical and horizontal lines
         else if (gameMode == optionsLinesMode[2])
         {
             //From Horizonal Lines
             (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
                 Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
-            
+
             //From Vertical Lines
             (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
                 Logic.CheckingAllVerticalLines(userArray, winnersDelta);
-            
+
             if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning)
             {
-                var totalWon = wonByHorizontalLines + wonByVerticalLines; 
+                var totalWon = wonByHorizontalLines + wonByVerticalLines;
                 userCredit += totalWon;
                 Console.ForegroundColor = ConsoleColor.Green;
                 if (messageHLines != "")
@@ -326,32 +323,32 @@ public class UiMethods
                 {
                     Console.WriteLine(messageVLines);
                 }
+
                 Console.WriteLine($"You won {totalWon}$!");
                 Console.ForegroundColor = ConsoleColor.Gray;
-
             }
         }
-        
+
         //With this gameMode we only check the all vertical and horizontal lines and diagonals
         else if (gameMode == optionsLinesMode[3])
         {
             //From all Horizonal Lines
             (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
                 Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
-            
+
             //From Vertical Lines
             (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
                 Logic.CheckingAllVerticalLines(userArray, winnersDelta);
-            
+
             //From Diagonal Lines
             (var isAnyDiagonalLineWinning, int wonByDiagonals, string messageDLines) =
                 Logic.CheckingDiagagonals(userArray, winnersDelta);
-            
-            
+
+
             if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning ||
                 isAnyDiagonalLineWinning)
             {
-                var totalWon = wonByHorizontalLines + wonByVerticalLines + wonByDiagonals; 
+                var totalWon = wonByHorizontalLines + wonByVerticalLines + wonByDiagonals;
                 userCredit += totalWon;
                 Console.ForegroundColor = ConsoleColor.Green;
                 if (messageHLines != "")
@@ -373,14 +370,15 @@ public class UiMethods
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
         }
-        
-        if (userCredit != 0){
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine($"The user credit is: {userCredit}$");
-        Console.ForegroundColor = ConsoleColor.Gray;
+
+        if (userCredit != 0)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"The user credit is: {userCredit}$");
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
+
         return userCredit;
-       
     }
 
     public static void AskingUserToLeaveBecauseOfNoMoneyLeft(int userCredit)
