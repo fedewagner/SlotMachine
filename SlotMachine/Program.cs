@@ -18,7 +18,7 @@
             
             //Min and max
             const int MIN_FOR_RANDOM_FUNCTION = 1;
-            const int MAX_FOR_RANDOM_FUNCTION = 9;
+            const int MAX_FOR_RANDOM_FUNCTION = 4;
 
             //options for the game modus
             const int OPTION_1_LINE = 1;
@@ -35,9 +35,6 @@
 
             //welcome and interact with UI to add credit
             int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
-
-            // select dimension of the grid
-            int[,] userArray;
 
             /*
              Select the bet:
@@ -68,7 +65,10 @@
                 }
 
                 //feed randomly the grid with the values
-                userArray = UiMethods.GeneratingGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
+                int[,] userArray = UiMethods.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION, MAX_FOR_RANDOM_FUNCTION);
+                
+                //print the grid with the values
+                UiMethods.PrintingGrid(userArray);
 
                 //Checking the combinations and calculating the new user credit
                 userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,

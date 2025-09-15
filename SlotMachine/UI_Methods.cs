@@ -1,3 +1,5 @@
+using System.Xml.Schema;
+
 namespace SlotMachine;
 
 public class UiMethods
@@ -138,20 +140,44 @@ public class UiMethods
     }
 
 
-    ///  <summary>
-    /// This method feeds randomly the grid with the values
-    ///  </summary>
-    ///  <param name="dimension">This needs the dimension to know how many values are needed</param>
-    ///  <param name="minForRandomFunction">The minimum value for the random function</param>
-    ///  <param name="maxForRandomFunction">The maximum value for the random function</param>
-    ///  <returns></returns>
-    public static int[,] GeneratingGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
+
+    /// <summary>
+    /// Method for generating the random numbers
+    /// </summary>
+    /// <param name="dimension"></param>
+    /// <param name="minForRandomFunction"></param>
+    /// <param name="maxForRandomFunction"></param>
+    /// <returns></returns>
+    public static int[,] GeneratingElementsForGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
     {
         int[,] userArray = new int [dimension, dimension];
 
+        for (int row = 0; row < userArray.GetLength(0); row++)
+        {
+            for (int col = 0; col < userArray.GetLength(1); col++)
+            {
+                //random generation
+                Random random = new Random();
+                int randomItem =
+                    random.Next(minForRandomFunction,  maxForRandomFunction +  1); //+1 is to include also the max value as an option in the random function
+                userArray[row, col] = randomItem;
+            }
+        }
+
+        return userArray;
+    }
+
+
+    ///  <summary>
+    /// This method feeds randomly the grid with the values
+    ///  </summary>
+    ///  <param name="userArray">The matrix with the values</param>
+    ///  <returns></returns>
+    public static void PrintingGrid(int[,] userArray)
+    {
         //Print the upper border (one extra at the beginning and one at the end)
         Console.WriteLine("The generated grid is...");
-        
+
         Console.Write("+");
         for (int column = 0; column < userArray.GetLength(0); column++)
         {
@@ -161,20 +187,15 @@ public class UiMethods
         Console.Write("+");
         Console.WriteLine();
 
-       // int item = 0;
+        // int item = 0;
 
         //fill the array
-        for (int row = 0; row < dimension; row++)
+        for (int row = 0; row < userArray.GetLength(0); row++)
         {
             //print first Character each row
             Console.Write("|");
-            for (int col = 0; col < dimension; col++)
+            for (int col = 0; col < userArray.GetLength(1); col++)
             {
-                //random generation
-                Random random = new Random();
-                int randomItem = random.Next(minForRandomFunction, maxForRandomFunction + 1); //+1 is to include also the max value as an option in the random function
-                userArray[row, col] = randomItem;
-
                 if (col % 2 != 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
@@ -202,9 +223,6 @@ public class UiMethods
         }
 
         Console.WriteLine("+");
-
-        return userArray;
-        
     }
 
     /// <summary>
