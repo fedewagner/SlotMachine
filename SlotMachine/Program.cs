@@ -37,7 +37,7 @@
             int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNERDELTA);
 
             // select dimension of the grid
-            int[,] userArray = new int [DIMENSION, DIMENSION];
+            int[,] userArray;
 
             /*
              Select the bet:
@@ -46,9 +46,14 @@
                 6L = 8$ or
                 8L = 12$
             */
+           
+            //List for option with amount of lines
             List<int> optionsLinesModus = new List<int>
                 { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
-            List<int> optionsLinesCosts = new List<int> { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
+            
+            //List for the cost of the different options
+            List<int> optionsLinesCosts = new List<int> 
+                { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
 
 
             while (userCredit > 0)
