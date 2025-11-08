@@ -32,6 +32,13 @@ public class Logic
     }
 
 
+    public static int addUserCredit(int userCredit, int CREDIT_DELTA)
+    {
+        userCredit += CREDIT_DELTA;
+        
+        return userCredit;
+    }
+
     //Methods area
     // check only one middle line
     public static (bool, int, string) CheckingHorizontalLine(int[,] userArray, int winnerdelta)

@@ -5,7 +5,7 @@ namespace SlotMachine;
 public class UiMethods
 {
 
-    public static void welcomeUser(int WINNING_DELTA)
+    public static void WelcomeUser(int WINNING_DELTA)
     {
         //give info to user
         Console.WriteLine("Welcome to the Slot Machine!");
@@ -15,20 +15,20 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
-    public static void showsCredit(int userCredit)
+    public static void ShowsCredit(int userCredit)
     {
         Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine($"Your current credit: {userCredit} $");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
-    public static void offerAddingCredit(List<string> optionsMenu)
+    public static void OfferAddingCredit(List<string> optionsMenu)
     {
         //uses the defined keys for adding credit
         Console.WriteLine($"If you want to add some credit (Press {optionsMenu[0]})!");
     }
 
-    public static void offerGamingMode(List<string> optionsMenu)
+    public static void OfferGamingMode(List<string> optionsMenu)
     {
         Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
         Console.ForegroundColor = ConsoleColor.Gray;
@@ -41,7 +41,7 @@ public class UiMethods
 /// </summary>
 /// <param name="userCredit"></param>
 /// <returns></returns>
-    public static (int, bool, string) readKey( int userCredit)
+    public static (int, bool, string) ReadUserKey( int userCredit, int CREDIT_DELTA)
     {
 
         bool gameMode = false;
@@ -53,10 +53,10 @@ public class UiMethods
             case "p": gameMode = true; break;
             case "f":
             {
-                userCredit += 100;
+                userCredit = Logic.addUserCredit(userCredit, CREDIT_DELTA);
 
                 //Prints credit
-                showsCredit(userCredit);
+                ShowsCredit(userCredit);
 
                 break;
             }
@@ -70,52 +70,6 @@ public class UiMethods
         
         
     
-
-
-    /// <summary>
-    /// This methods welcomes the user and give the option to add credit or go into play mode.
-    /// </summary>
-    /// <returns></returns>
-    public static int addSomeCredit(int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT, string KEY_FOR_GAMING, int userCredit)
-    {
-        //variables
-        
-        bool gameMode = false;
-        string selection = null;
-
-        //define keys for user to be pressed
-        List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
-
-        
-
-        //add mode credit or go into game mode
-        Console.WriteLine($"In case you want to add more money please insert banknote (Press {optionsMenu[0]})!");
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
-        Console.ForegroundColor = ConsoleColor.Gray;
-
-        while (optionsMenu.Contains(selection) && !gameMode)
-        {
-            selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-            switch (selection)
-            {
-                case "p": gameMode = true; break;
-                case "f":
-                {
-                    userCredit += 100;
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine($"Your current credit: {userCredit} $");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(
-                        $"More money? => (Press {optionsMenu[0]})! or to play (Press {optionsMenu[1]})!");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-                }
-            }
-        }
-
-        return userCredit;
-    }
 
 
     /// <summary>

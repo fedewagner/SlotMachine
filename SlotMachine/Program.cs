@@ -40,7 +40,7 @@
 
             
             //give intro an explain rules
-            UiMethods.welcomeUser(WINNING_DELTA);
+            UiMethods.WelcomeUser(WINNING_DELTA);
             
             
             //welcome and interact with UI to add credit
@@ -48,20 +48,22 @@
 
             List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
             
-            bool gameMode = false;
+            bool gameMode;
             string selection;
             
+            
+            // CONTROL OF WRONG KEY DFFERENT TO "F" OR "P" IS MISSING
             do
             {
                 //add mode credit 
-                UiMethods.offerAddingCredit(optionsMenu);
+                UiMethods.OfferAddingCredit(optionsMenu);
             
                 //or go into game mode
-                UiMethods.offerGamingMode(optionsMenu);
+                UiMethods.OfferGamingMode(optionsMenu);
 
                 
                 //read key method
-                (userCredit, gameMode, selection) = UiMethods.readKey(userCredit);
+                (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit, CREDIT_DELTA);
                 
                 
             } while (optionsMenu.Contains(selection) && !gameMode);
