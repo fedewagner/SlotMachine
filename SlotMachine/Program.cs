@@ -38,6 +38,11 @@
             const int COST_6_LINES = 8;
             const int COST_8_LINES = 12;
 
+            
+            //give intro an explain rules
+            UiMethods.welcomeUser(WINNING_DELTA);
+            
+            
             //welcome and interact with UI to add credit
             int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNING_DELTA, CREDIT_DELTA, KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING);
 
@@ -90,10 +95,9 @@
             {
                 UiMethods.AskingUserToLeaveBecauseOfNoMoneyLeft(userCredit);
             }
-            
-            
+
             //insert more money option
-            
+
         }
     }
 }
