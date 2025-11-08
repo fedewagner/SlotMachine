@@ -14,37 +14,79 @@ public class UiMethods
         Console.WriteLine($"Everytime you get a line, you'll win {WINNING_DELTA}$!!!");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
+
+    public static void showsCredit(int userCredit)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.WriteLine($"Your current credit: {userCredit} $");
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
+
+    public static void offerAddingCredit(List<string> optionsMenu)
+    {
+        //uses the defined keys for adding credit
+        Console.WriteLine($"If you want to add some credit (Press {optionsMenu[0]})!");
+    }
+
+    public static void offerGamingMode(List<string> optionsMenu)
+    {
+        Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
+
+
+
+/// <summary>
+/// read the key entered by the user and then based on the choice, either add credit or go to game mode
+/// </summary>
+/// <param name="userCredit"></param>
+/// <returns></returns>
+    public static (int, bool, string) readKey( int userCredit)
+    {
+
+        bool gameMode = false;
+        string selection;
+
+        selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
+        switch (selection)
+        {
+            case "p": gameMode = true; break;
+            case "f":
+            {
+                userCredit += 100;
+
+                //Prints credit
+                showsCredit(userCredit);
+
+                break;
+            }
+
+        }
+        return (userCredit, gameMode, selection);
+    }
+
+
+
+        
+        
     
-    
+
+
     /// <summary>
     /// This methods welcomes the user and give the option to add credit or go into play mode.
     /// </summary>
     /// <returns></returns>
-    public static int WelcomeUserAndAddSomeCredit(int WINNING_DELTA, int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT,
-        string KEY_FOR_GAMING)
+    public static int addSomeCredit(int CREDIT_DELTA, string KEY_FOR_ADDING_CREDIT, string KEY_FOR_GAMING, int userCredit)
     {
         //variables
-        int userCredit = 0;
+        
         bool gameMode = false;
-        string selection;
+        string selection = null;
 
         //define keys for user to be pressed
         List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
 
-
         
-
-        //Add initial credit
-        do
-        {
-            Console.WriteLine($"Please enter some credit (Press {optionsMenu[0]})!");
-            selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
-        } while (!Equals(selection, KEY_FOR_ADDING_CREDIT));
-
-        userCredit += CREDIT_DELTA;
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine($"Your current credit: {userCredit} $");
-        Console.ForegroundColor = ConsoleColor.Gray;
 
         //add mode credit or go into game mode
         Console.WriteLine($"In case you want to add more money please insert banknote (Press {optionsMenu[0]})!");

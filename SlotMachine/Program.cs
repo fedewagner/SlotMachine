@@ -44,16 +44,29 @@
             
             
             //welcome and interact with UI to add credit
-            int userCredit = UiMethods.WelcomeUserAndAddSomeCredit(WINNING_DELTA, CREDIT_DELTA, KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING);
+            int userCredit = 0;
 
-            /*
-             Select the bet:
-                1L = 1$,
-                3L = 3$,
-                6L = 8$ or
-                8L = 12$
-            */
-           
+            List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
+            
+            bool gameMode = false;
+            string selection;
+            
+            do
+            {
+                //add mode credit 
+                UiMethods.offerAddingCredit(optionsMenu);
+            
+                //or go into game mode
+                UiMethods.offerGamingMode(optionsMenu);
+
+                
+                //read key method
+                (userCredit, gameMode, selection) = UiMethods.readKey(userCredit);
+                
+                
+            } while (optionsMenu.Contains(selection) && !gameMode);
+            
+          
             //List for option with amount of lines
             List<int> optionsLinesModus = new List<int>
                 { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
