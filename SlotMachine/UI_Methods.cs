@@ -92,19 +92,9 @@ public class UiMethods
     {
         bool isMoneyEnough = true;
 
-        Console.WriteLine("---------------------------------------------------------------------------");
-        Console.WriteLine("How many lines would you like to play? Please select one option");
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesMode[0]})");
-        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesMode[1]})");
-        Console.WriteLine(
-            $"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesMode[2]})");
-        Console.WriteLine(
-            $"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesMode[3]})");
-        Console.ForegroundColor = ConsoleColor.DarkGray;
-        Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
-        Console.ForegroundColor = ConsoleColor.Gray;
-
+        //Printing options for the user and the line selection
+        PrintLineOption(optionsLinesMode, optionsLinesCosts);
+        
         bool success;
         int selectionLines;
         int gameMode = 0;
@@ -151,6 +141,23 @@ public class UiMethods
         return (gameMode, userCredit, isMoneyEnough);
     }
 
+    static public void PrintLineOption(List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    {
+        Console.WriteLine("---------------------------------------------------------------------------");
+        Console.WriteLine("How many lines would you like to play? Please select one option");
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesMode[0]})");
+        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesMode[1]})");
+        Console.WriteLine(
+            $"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesMode[2]})");
+        Console.WriteLine(
+            $"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesMode[3]})");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
+    
+    
     /// <summary>
     /// This enable to check if the userCredit is enough or not
     /// </summary>
