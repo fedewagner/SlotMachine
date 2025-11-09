@@ -93,7 +93,7 @@ public class UiMethods
         bool isMoneyEnough = true;
 
         //Printing options for the user and the line selection
-        PrintLineOption(optionsLinesMode, optionsLinesCosts);
+        PrintLineOptions(optionsLinesMode, optionsLinesCosts);
         
         bool success;
         int selectionLines;
@@ -110,11 +110,8 @@ public class UiMethods
         {
             //case for checking out
             gameMode = optionsLinesMode[4];
-            Console.WriteLine("---------------------------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"You finished playing with the credit: {userCredit}$");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("---------------------------------------------------------------------------");
+            UserChecksOut(userCredit);
+           
         }
 
         //continue with the most expensive case = 12$ and check the money
@@ -141,7 +138,8 @@ public class UiMethods
         return (gameMode, userCredit, isMoneyEnough);
     }
 
-    static public void PrintLineOption(List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    //Line options with costs
+    static public void PrintLineOptions(List<int> optionsLinesMode, List<int> optionsLinesCosts)
     {
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine("How many lines would you like to play? Please select one option");
@@ -157,6 +155,15 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Gray;
     }
     
+    //Check out
+    public static void UserChecksOut(int userCredit)
+    {
+        Console.WriteLine("---------------------------------------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"You finished playing with the credit: {userCredit}$");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.WriteLine("---------------------------------------------------------------------------");
+    }
     
     /// <summary>
     /// This enable to check if the userCredit is enough or not
