@@ -87,6 +87,7 @@ public class Logic
         {
             //do nothing
         }
+        UiMethods.ShowsCredit(userCredit);
         return userCredit;
         }
     
@@ -115,6 +116,7 @@ public class Logic
         userCredit += wonByMiddleLine;
         
         UiMethods.PrintingWinnerText(message, userCredit);
+        
         return userCredit;
     }
 
@@ -247,7 +249,6 @@ public class Logic
             //PRINT WON BY DIAGONALS
             UiMethods.PrintingWinnerText(message, userCredit);
         }
-        UiMethods.ShowsCredit(userCredit);
         return userCredit;
     }
 }

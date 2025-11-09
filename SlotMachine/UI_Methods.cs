@@ -133,24 +133,23 @@ public class UiMethods
         //continue with the most expensive case = 12$ and check the money
         else if (gameModus == optionsLinesMode[3])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus, optionsLinesCosts[3]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, optionsLinesCosts[3]);
         }
 
         else if (gameModus == optionsLinesMode[2])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[2]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[2]);
         }
 
         else if (gameModus == optionsLinesMode[1])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[1]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[1]);
         }
 
         else if (gameModus == optionsLinesMode[0])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[0]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[0]);
         }
-        
 
         return (userCredit, isMoneyEnough);
     }
@@ -189,14 +188,16 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
-    public static (bool,int) CheckingUserCredit(int userCredit, int gameModus, int selectedBetCost)
+    public static (bool,int) RestingUsersCredit(int userCredit, int gameModus, int selectedBetCost)
     {
         bool isMoneyEnough;
         if (userCredit >= selectedBetCost)
         {
             isMoneyEnough = true;
             userCredit -= selectedBetCost;
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"Your current credit: {userCredit}$ and selected bet is {gameModus} Lines");
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         else

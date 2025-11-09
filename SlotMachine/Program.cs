@@ -93,7 +93,7 @@
                     //print the grid with the values
                     UiMethods.PrintingGrid(userArray);
 
-                    //Checking the combinations and calculating the new user credit
+                    //Checking the combinations and calculating the new user credit if wins
                     userCredit = Logic.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
                         WINNING_DELTA);
                 }
