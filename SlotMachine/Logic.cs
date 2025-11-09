@@ -43,18 +43,6 @@ public class Logic
     public static int CheckingTheCombinations(int gameModus, int userCredit, List<int> optionsLinesMode,
         int[,] userArray, int winnersDelta)
     {
-        bool isAnyHorizontalLineWinning;
-        int wonByHorizontalLines;
-        string messageHLines;
-
-        bool isAnyVerticalLineWinning;
-        int wonByVerticalLines;
-        string messageVLines;
-
-        bool isAnyDiagonalLineWinning;
-        int wonByDiagonals;
-        string messageDLines;
-        
         
         //With this game Modus we only check the Middle horizontal line
         if (gameModus == optionsLinesMode[0])
