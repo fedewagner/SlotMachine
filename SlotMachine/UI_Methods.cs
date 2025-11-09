@@ -5,13 +5,13 @@ namespace SlotMachine;
 public class UiMethods
 {
 
-    public static void WelcomeUser(int WINNING_DELTA)
+    public static void WelcomeUser()
     {
         //give info to user
         Console.WriteLine("Welcome to the Slot Machine!");
         Console.WriteLine("You can play for Horizontal, Vertical and Diagonal Lines");
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Everytime you get a line, you'll win {WINNING_DELTA}$!!!");
+        Console.WriteLine($"Everytime you get a line, you'll win {Constants.WINNING_DELTA}$!!!");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
@@ -22,15 +22,15 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
-    public static void OfferAddingCredit(List<string> optionsMenu)
+    public static void OfferAddingCredit()
     {
         //uses the defined keys for adding credit
-        Console.WriteLine($"If you want to add some credit (Press {optionsMenu[0]})!");
+        Console.WriteLine($"If you want to add some credit (Press {Constants.KEYS_OPTIONS_LIST[0]})!");
     }
 
-    public static void OfferGamingMode(List<string> optionsMenu)
+    public static void OfferGamingMode()
     {
-        Console.WriteLine($"Otherwise, to play (Press {optionsMenu[1]})!");
+        Console.WriteLine($"Otherwise, to play (Press {Constants.KEYS_OPTIONS_LIST[1]})!");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
@@ -41,7 +41,7 @@ public class UiMethods
 /// </summary>
 /// <param name="userCredit"></param>
 /// <returns></returns>
-    public static (int, bool, string) ReadUserKey( int userCredit, List<string> optionsMenu)
+    public static (int, bool, string) ReadUserKey( int userCredit)
     {
         bool gameMode = false;
         string selection;
@@ -51,11 +51,11 @@ public class UiMethods
            //read key method
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
 
-            if (!optionsMenu.Contains(selection))
+            if (!Constants.KEYS_OPTIONS_LIST.Contains(selection))
             {
-                Console.WriteLine($"Please press ´{optionsMenu[0]}´ or ´{optionsMenu[1]}´ ");
+                Console.WriteLine($"Please press ´{Constants.KEYS_OPTIONS_LIST[0]}´ or ´{Constants.KEYS_OPTIONS_LIST[1]}´ ");
             }
-        } while (!optionsMenu.Contains(selection)); //repeat if the key is not valid
+        } while (!Constants.KEYS_OPTIONS_LIST.Contains(selection)); //repeat if the key is not valid
         
 
         switch (selection)
@@ -87,10 +87,10 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static int AskForLinesSelection(List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    public static int AskForLinesSelection()
     {
         //Printing options for the user and the line selection
-        PrintLineOptions(optionsLinesMode, optionsLinesCosts);
+        PrintLineOptions(Constants.MODI_OPTIONS_LIST, Constants.LINES_OPTIONS_COSTS_LIST);
         
         bool success;
         int selectedLine;
@@ -100,12 +100,12 @@ public class UiMethods
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectedLine);
-            if (!optionsLinesMode.Contains(selectedLine))
+            if (!Constants.MODI_OPTIONS_LIST.Contains(selectedLine))
             {
-                Console.WriteLine($"Please press {optionsLinesMode[0]}, {optionsLinesMode[1]}, {optionsLinesMode[2]}, {optionsLinesMode[3]} or {optionsLinesMode[4]}!");
+                Console.WriteLine($"Please press {Constants.MODI_OPTIONS_LIST[0]}, {Constants.MODI_OPTIONS_LIST[1]}, {Constants.MODI_OPTIONS_LIST[2]}, {Constants.MODI_OPTIONS_LIST[3]} or {Constants.MODI_OPTIONS_LIST[4]}!");
             }
             
-        } while (!success || !optionsLinesMode.Contains(selectedLine));
+        } while (!success || !Constants.MODI_OPTIONS_LIST.Contains(selectedLine));
         
         gameMode = selectedLine;
         return (gameMode);
@@ -119,36 +119,36 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus, List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus)
     {
         bool isMoneyEnough = true;
         
         //depending on the selection then the app prints something different
-        if (gameModus == optionsLinesMode[4]) //start with the case of checking out
+        if (gameModus == Constants.MODI_OPTIONS_LIST[4]) //start with the case of checking out
         {
             //case for checking out
             UserChecksOut(userCredit);
         }
 
         //continue with the most expensive case = 12$ and check the money
-        else if (gameModus == optionsLinesMode[3])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[3])
         {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, optionsLinesCosts[3]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, Constants.LINES_OPTIONS_COSTS_LIST[3]);
         }
 
-        else if (gameModus == optionsLinesMode[2])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[2])
         {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[2]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[2]);
         }
 
-        else if (gameModus == optionsLinesMode[1])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[1])
         {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[1]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[1]);
         }
 
-        else if (gameModus == optionsLinesMode[0])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[0])
         {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,optionsLinesCosts[0]);
+            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[0]);
         }
 
         return (userCredit, isMoneyEnough);

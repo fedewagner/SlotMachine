@@ -5,13 +5,10 @@ public class Logic
     /// <summary>
     /// Method for generating the random numbers
     /// </summary>
-    /// <param name="dimension"></param>
-    /// <param name="minForRandomFunction"></param>
-    /// <param name="maxForRandomFunction"></param>
     /// <returns></returns>
-    public static int[,] GeneratingElementsForGrid(int dimension, int minForRandomFunction, int maxForRandomFunction)
+    public static int[,] GeneratingElementsForGrid()
     {
-        int[,] userArray = new int [dimension, dimension];
+        int[,] userArray = new int [Constants.DIMENSION, Constants.DIMENSION];
         Random random = new Random();
         
         for (int row = 0; row < userArray.GetLength(0); row++)
@@ -21,8 +18,8 @@ public class Logic
                 
                 //random generation
                 int randomItem =
-                    random.Next(minForRandomFunction,
-                        maxForRandomFunction +
+                    random.Next(Constants.MIN_FOR_RANDOM_FUNCTION,
+                        Constants.MAX_FOR_RANDOM_FUNCTION +
                         1); //+1 is to include also the max value as an option in the random function
                 userArray[row, col] = randomItem;
             }
@@ -39,8 +36,8 @@ public class Logic
     }
 
 
-    public static (int userCredit, int wonInTheBet) CheckingTheCombinations(int gameModus, int userCredit, List<int> optionsLinesMode,
-        int[,] userArray, int winnersDelta)
+    public static (int userCredit, int wonInTheBet) CheckingTheCombinations(int gameModus, int userCredit,
+        int[,] userArray)
     {
         //With this game Modus we only check the Middle horizontal line
         int wonInTheBet = 0;
@@ -48,21 +45,21 @@ public class Logic
         int wonInTheBetVertical;
         int wonInTheBetDiagonal;
         
-        if (gameModus == optionsLinesMode[0])
+        if (gameModus == Constants.MODI_OPTIONS_LIST[0])
         {
             //From middle horizontal Line
             (userCredit, wonInTheBet) = CheckingHorizontalLine(userArray, userCredit);
         }
         
         //With this game Modus we only check the all horizontal lines
-        if (gameModus == optionsLinesMode[1])
+        if (gameModus == Constants.MODI_OPTIONS_LIST[1])
         {
             //From Horizonal Lines
             (userCredit, wonInTheBet) = CheckingAllHorizontalLines(userArray, userCredit);
         }
 
         //With this game Modus we only check the all vertical and horizontal lines
-        else if (gameModus == optionsLinesMode[2])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[2])
         {
             //From Horizonal Lines
             (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, userCredit);
@@ -75,7 +72,7 @@ public class Logic
 
 
         //With this gameMode we only check the all vertical and horizontal lines and diagonals
-        else if (gameModus == optionsLinesMode[3])
+        else if (gameModus == Constants.MODI_OPTIONS_LIST[3])
         {
                 //From all Horizonal Lines
                 (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, userCredit);
