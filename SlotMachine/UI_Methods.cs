@@ -87,9 +87,8 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int gameModus, int userCredit, bool isMoneyEnoght) AskForLinesSelection(int userCredit,
-        List<int> optionsLinesMode,
-        List<int> optionsLinesCosts)
+    public static (int gameModus, int userCredit, bool isMoneyEnoght) AskForLinesSelection(int userCredit, List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    
     {
         bool isMoneyEnough = true;
 
@@ -109,12 +108,14 @@ public class UiMethods
         bool success;
         int selectionLines;
         int gameMode = 0;
-
+        
+        //check if the selection is valid
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
         } while (!success || !optionsLinesMode.Contains(selectionLines));
 
+        //depending on the selection then the app prints something different
         if (selectionLines == optionsLinesMode[4]) //start with the case of checking out
         {
             //case for checking out

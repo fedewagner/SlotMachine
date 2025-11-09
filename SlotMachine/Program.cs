@@ -31,6 +31,18 @@
             const int COST_3_LINES = 3;
             const int COST_6_LINES = 8;
             const int COST_8_LINES = 12;
+            
+            // List declarations with the packed constants
+            //List for option with amount of lines
+            List<int> optionsLinesModus = new List<int>
+                { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
+            
+            //List for the cost of the different options
+            List<int> optionsLinesCosts = new List<int> 
+                { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
+            
+            //List with the key options
+            List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
 
             
             //give intro an explain rules
@@ -38,12 +50,10 @@
             
             //welcome and interact with UI to add credit
             int userCredit = 0;
-            bool gameMode = false;
+            bool gameMode;
             string selection;
-
-            List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
-
-            // CONTROL OF WRONG KEY DIFFERENT TO "F" OR "P" IS MISSING
+            
+            //Adding credit for the user and asking for play mode
             do
             {
                 //add mode credit 
@@ -55,18 +65,10 @@
                 //read key method
                 (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit, CREDIT_DELTA, optionsMenu);
                 
-                
-            } while (optionsMenu.Contains(selection) && !gameMode);
+            } while (optionsMenu.Contains(selection) && !gameMode); //if the gamemode is activated then we leave this loop
             
           
-            //List for option with amount of lines
-            List<int> optionsLinesModus = new List<int>
-                { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
-            
-            //List for the cost of the different options
-            List<int> optionsLinesCosts = new List<int> 
-                { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
-
+            //in case the user has more money, then he can play
             while (userCredit > 0)
             {
                 bool moneyIsEnough;
