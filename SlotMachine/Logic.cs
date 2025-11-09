@@ -97,9 +97,8 @@ public class Logic
         }
         else if (userCredit != 0)
         {
-            UiMethods.ShowsCredit(userCredit);
+            //do nothing
         }
-
         return userCredit;
         }
     
@@ -127,8 +126,7 @@ public class Logic
         
         userCredit += wonByMiddleLine;
         
-        UiMethods.PrintingWinnerText(message, wonByMiddleLine, userCredit);
-        
+        UiMethods.PrintingWinnerText(message, userCredit);
         return userCredit;
     }
 
@@ -166,10 +164,9 @@ public class Logic
             //a row is winning
             message = $"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!";
             userCredit += wonByHorizontalLines;
-            UiMethods.PrintingWinnerText(message, wonByHorizontalLines, userCredit);
+            UiMethods.PrintingWinnerText(message, userCredit);
             
         }
-
         return userCredit;
     }
 
@@ -205,10 +202,9 @@ public class Logic
         if (anyColumnWinning)
         {
             message = $"Well done, you got {wonByVerticalLines}$ from the vertical lines!";
-            UiMethods.PrintingWinnerText(message, wonByVerticalLines, userCredit);
-            return userCredit; //a column is winning
+            UiMethods.PrintingWinnerText(message, userCredit);
+            
         }
-
         return userCredit; //no column winning
     }
 
@@ -261,9 +257,9 @@ public class Logic
             userCredit += wonByDiagonals;
             
             //PRINT WON BY DIAGONALS
-            UiMethods.PrintingWinnerText(message, wonByDiagonals, userCredit);
+            UiMethods.PrintingWinnerText(message, userCredit);
         }
-
+        UiMethods.ShowsCredit(userCredit);
         return userCredit;
     }
 }

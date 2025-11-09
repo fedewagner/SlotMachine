@@ -17,7 +17,7 @@
             
             //Min and max
             const int MIN_FOR_RANDOM_FUNCTION = 1;
-            const int MAX_FOR_RANDOM_FUNCTION = 9; //this value will be also include. Recommendation below 9
+            const int MAX_FOR_RANDOM_FUNCTION = 1; //this value will be also include. Recommendation below 9
 
             //options for the game modus
             const int OPTION_1_LINE = 1;
