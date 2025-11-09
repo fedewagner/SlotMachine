@@ -4,20 +4,14 @@
     {
         static void Main(string[] args)
         {
-            /*
-                Design a game where the user can play a make-believe slot machine.
-                The user will be asked to make a wager to play various lines in a 3 x 3 grid.
-                They can play center line, all three horizontal lines, all vertical lines and diagonals.
-                For instance the user can enter $3 dollars and play all three horizontal lines.
-                If the top line hits a winning combination, they earn $1 dollar for that line.
-            */
-
             //constants
             const int WINNING_DELTA = 50;
             const int DIMENSION = 3;
             
-            //const for WelcomeUser Method
+            //const for credit
             const int CREDIT_DELTA = 100;
+            
+            //const for options
             const string KEY_FOR_ADDING_CREDIT = "f";
             const string KEY_FOR_GAMING = "p";
             
@@ -42,17 +36,14 @@
             //give intro an explain rules
             UiMethods.WelcomeUser(WINNING_DELTA);
             
-            
             //welcome and interact with UI to add credit
             int userCredit = 0;
+            bool gameMode = false;
+            string selection;
 
             List<string> optionsMenu = new List<string> { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
-            
-            bool gameMode;
-            string selection;
-            
-            
-            // CONTROL OF WRONG KEY DFFERENT TO "F" OR "P" IS MISSING
+
+            // CONTROL OF WRONG KEY DIFFERENT TO "F" OR "P" IS MISSING
             do
             {
                 //add mode credit 
@@ -60,10 +51,9 @@
             
                 //or go into game mode
                 UiMethods.OfferGamingMode(optionsMenu);
-
                 
                 //read key method
-                (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit, CREDIT_DELTA);
+                (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit, CREDIT_DELTA, optionsMenu);
                 
                 
             } while (optionsMenu.Contains(selection) && !gameMode);

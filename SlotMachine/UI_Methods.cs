@@ -41,26 +41,34 @@ public class UiMethods
 /// </summary>
 /// <param name="userCredit"></param>
 /// <returns></returns>
-    public static (int, bool, string) ReadUserKey( int userCredit, int CREDIT_DELTA)
+    public static (int, bool, string) ReadUserKey( int userCredit, int CREDIT_DELTA, List<string> optionsMenu)
     {
-
         bool gameMode = false;
         string selection;
+        
+        do
+        {
+           //read key method
+            selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
 
-        selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            if (!optionsMenu.Contains(selection))
+            {
+                Console.WriteLine($"Please press ´{optionsMenu[0]}´ or ´{optionsMenu[1]}´ ");
+            }
+        } while (!optionsMenu.Contains(selection)); //repeat if the key is not valid
+        
+
         switch (selection)
         {
             case "p": gameMode = true; break;
             case "f":
             {
                 userCredit = Logic.addUserCredit(userCredit, CREDIT_DELTA);
-
                 //Prints credit
                 ShowsCredit(userCredit);
-
                 break;
             }
-
+            
         }
         return (userCredit, gameMode, selection);
     }
