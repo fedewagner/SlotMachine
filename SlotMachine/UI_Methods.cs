@@ -111,7 +111,14 @@ public class UiMethods
         return (gameMode);
     }
 
-
+    /// <summary>
+    /// This method check the Selected mode by the user and then check if the money is enough returning a TRUE if the money is available
+    /// </summary>
+    /// <param name="userCredit"></param>
+    /// <param name="gameModus"></param>
+    /// <param name="optionsLinesMode"></param>
+    /// <param name="optionsLinesCosts"></param>
+    /// <returns></returns>
     public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus, List<int> optionsLinesMode, List<int> optionsLinesCosts)
     {
         bool isMoneyEnough = true;
@@ -126,22 +133,22 @@ public class UiMethods
         //continue with the most expensive case = 12$ and check the money
         else if (gameModus == optionsLinesMode[3])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus, optionsLinesMode[3], optionsLinesCosts[3]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus, optionsLinesCosts[3]);
         }
 
         else if (gameModus == optionsLinesMode[2])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[2], optionsLinesCosts[2]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[2]);
         }
 
         else if (gameModus == optionsLinesMode[1])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[1], optionsLinesCosts[1]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[1]);
         }
 
         else if (gameModus == optionsLinesMode[0])
         {
-            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[0], optionsLinesCosts[0]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesCosts[0]);
         }
         
 
@@ -182,7 +189,7 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
-    public static (bool,int) CheckingUserCredit(int userCredit, int gameModus, int optionsLinesMode, int selectedBetCost)
+    public static (bool,int) CheckingUserCredit(int userCredit, int gameModus, int selectedBetCost)
     {
         bool isMoneyEnough;
         if (userCredit >= selectedBetCost)
