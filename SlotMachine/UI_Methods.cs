@@ -41,7 +41,7 @@ public class UiMethods
 /// </summary>
 /// <param name="userCredit"></param>
 /// <returns></returns>
-    public static (int, bool, string) ReadUserKey( int userCredit, int CREDIT_DELTA, List<string> optionsMenu)
+    public static (int, bool, string) ReadUserKey( int userCredit, List<string> optionsMenu)
     {
         bool gameMode = false;
         string selection;
@@ -69,7 +69,7 @@ public class UiMethods
             }
             case "f":
             {
-                userCredit = Logic.AddUserCredit(userCredit, CREDIT_DELTA);
+                userCredit = Logic.AddUserCredit(userCredit);
                 //Prints credit
                 ShowsCredit(userCredit);
                 break;
