@@ -83,10 +83,7 @@ public class Logic
 
             
         }
-        else if (userCredit != 0)
-        {
-            //do nothing
-        }
+
         UiMethods.ShowsCredit(userCredit);
         return userCredit;
         }
