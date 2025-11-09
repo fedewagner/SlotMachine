@@ -71,19 +71,21 @@
             //in case the user has more money, then he can play
             while (userCredit > 0)
             {
-                bool moneyIsEnough;
+                bool isMoneyEnough;
                 int gameModus;
                 
                 // defining the game modus  
-                (gameModus, userCredit, moneyIsEnough) =
-                    UiMethods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
+                gameModus = UiMethods.AskForLinesSelection(optionsLinesModus, optionsLinesCosts);
 
+                //checking the selected mode
+                (userCredit, isMoneyEnough) = UiMethods.CheckingSelectedMode(userCredit, gameModus, optionsLinesModus ,optionsLinesCosts);
+                
                 if (gameModus == OPTION_CHECK_OUT)
                 {
-                    break;
+                    break; // we go out from Playing Modus
                 }
 
-                if (moneyIsEnough)
+                if (isMoneyEnough)
                 {
                     //feed randomly the grid with the values
                     int[,] userArray = Logic.GeneratingElementsForGrid(DIMENSION, MIN_FOR_RANDOM_FUNCTION,

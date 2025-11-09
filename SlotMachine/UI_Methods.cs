@@ -87,55 +87,65 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int , int , bool ) AskForLinesSelection(int userCredit, List<int> optionsLinesMode, List<int> optionsLinesCosts)
-    
+    public static int AskForLinesSelection(List<int> optionsLinesMode, List<int> optionsLinesCosts)
     {
-        bool isMoneyEnough = true;
-
         //Printing options for the user and the line selection
         PrintLineOptions(optionsLinesMode, optionsLinesCosts);
         
         bool success;
-        int selectionLines;
-        int gameMode = 0;
+        int selectedLine;
+        int gameMode;
         
         //check if the selection is valid
         do
         {
-            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectionLines);
-        } while (!success || !optionsLinesMode.Contains(selectionLines));
+            success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectedLine);
+            if (!optionsLinesMode.Contains(selectedLine))
+            {
+                Console.WriteLine($"Please press {optionsLinesMode[0]}, {optionsLinesMode[1]}, {optionsLinesMode[2]}, {optionsLinesMode[3]} or {optionsLinesMode[4]}!");
+            }
+            
+        } while (!success || !optionsLinesMode.Contains(selectedLine));
+        
+        gameMode = selectedLine;
+        return (gameMode);
+    }
 
+
+    public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus, List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    {
+        bool isMoneyEnough = true;
+        
         //depending on the selection then the app prints something different
-        if (selectionLines == optionsLinesMode[4]) //start with the case of checking out
+        if (gameModus == optionsLinesMode[4]) //start with the case of checking out
         {
             //case for checking out
-            gameMode = optionsLinesMode[4];
             UserChecksOut(userCredit);
-           
         }
 
         //continue with the most expensive case = 12$ and check the money
-        else if (selectionLines == optionsLinesMode[3])
+        else if (gameModus == optionsLinesMode[3])
         {
-            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[3], optionsLinesCosts[3]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus, optionsLinesMode[3], optionsLinesCosts[3]);
         }
 
-        else if (selectionLines == optionsLinesMode[2])
+        else if (gameModus == optionsLinesMode[2])
         {
-            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[2], optionsLinesCosts[2]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[2], optionsLinesCosts[2]);
         }
 
-        else if (selectionLines == optionsLinesMode[1])
+        else if (gameModus == optionsLinesMode[1])
         {
-            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[1], optionsLinesCosts[1]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[1], optionsLinesCosts[1]);
         }
 
-        else if (selectionLines == optionsLinesMode[0])
+        else if (gameModus == optionsLinesMode[0])
         {
-            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[0], optionsLinesCosts[0]);
+            (isMoneyEnough, userCredit) = CheckingUserCredit(userCredit, gameModus,optionsLinesMode[0], optionsLinesCosts[0]);
         }
+        
 
-        return (gameMode, userCredit, isMoneyEnough);
+        return (userCredit, isMoneyEnough);
     }
 
     //Line options with costs
@@ -172,30 +182,26 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
-    public static (bool,int,int) CheckingUserCredit(int userCredit, int optionsLinesMode, int selectedBetCost)
+    public static (bool,int) CheckingUserCredit(int userCredit, int gameModus, int optionsLinesMode, int selectedBetCost)
     {
         bool isMoneyEnough;
-        int gameMode;
-        
         if (userCredit >= selectedBetCost)
         {
             isMoneyEnough = true;
-            gameMode = optionsLinesMode;
             userCredit -= selectedBetCost;
-            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameModus} Lines");
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         else
         {
             isMoneyEnough = false;
-            gameMode = 0;
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {selectedBetCost}$");
             Console.WriteLine("Please select another option");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        return (isMoneyEnough, userCredit, gameMode);
+        return (isMoneyEnough, userCredit);
     }
     
     ///  <summary>
