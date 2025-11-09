@@ -274,7 +274,7 @@ public class UiMethods
         if (wonInTheBet >= 1)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"You won {wonInTheBet}$ in the bet");
+            Console.WriteLine($"You won {wonInTheBet}$ in the bet!");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
