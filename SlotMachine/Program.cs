@@ -72,9 +72,10 @@
             while (userCredit > 0)
             {
                 bool moneyIsEnough;
+                int gameModus;
                 
                 // defining the game modus  
-                (int gameModus, userCredit, moneyIsEnough) =
+                (gameModus, userCredit, moneyIsEnough) =
                     UiMethods.AskForLinesSelection(userCredit, optionsLinesModus, optionsLinesCosts);
 
                 if (gameModus == OPTION_CHECK_OUT)

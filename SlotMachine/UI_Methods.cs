@@ -60,7 +60,13 @@ public class UiMethods
 
         switch (selection)
         {
-            case "p": gameMode = true; break;
+            case "p":
+            {
+                if (userCredit > 0)
+                {gameMode = true; break;}
+                Console.WriteLine($"Your current credit {userCredit}$ isn´t enough!");
+                break;
+            }
             case "f":
             {
                 userCredit = Logic.addUserCredit(userCredit, CREDIT_DELTA);
@@ -74,12 +80,6 @@ public class UiMethods
     }
 
 
-
-        
-        
-    
-
-
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
@@ -87,7 +87,7 @@ public class UiMethods
     /// <param name="optionsLinesMode"></param>
     /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
-    public static (int gameModus, int userCredit, bool isMoneyEnoght) AskForLinesSelection(int userCredit, List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    public static (int , int , bool ) AskForLinesSelection(int userCredit, List<int> optionsLinesMode, List<int> optionsLinesCosts)
     
     {
         bool isMoneyEnough = true;
@@ -130,88 +130,60 @@ public class UiMethods
         //continue with the most expensive case = 12$ and check the money
         else if (selectionLines == optionsLinesMode[3])
         {
-            if (userCredit >= optionsLinesCosts[3])
-            {
-                isMoneyEnough = true;
-                gameMode = optionsLinesMode[3];
-                userCredit -= optionsLinesCosts[3];
-                Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
-                Console.WriteLine("---------------------------------------------------------------------------");
-            }
-            else
-            {
-                isMoneyEnough = false;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {optionsLinesCosts[3]}$");
-                Console.WriteLine("Please select another option");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
+            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[3], optionsLinesCosts[3]);
         }
 
         else if (selectionLines == optionsLinesMode[2])
         {
-            if (userCredit >= optionsLinesCosts[2])
-            {
-                isMoneyEnough = true;
-                gameMode = optionsLinesMode[2];
-                userCredit -= optionsLinesCosts[2];
-                Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
-                Console.WriteLine("---------------------------------------------------------------------------");
-            }
-            else
-            {
-                isMoneyEnough = false;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {optionsLinesCosts[2]}$");
-                Console.WriteLine("Please select another option");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
+            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[2], optionsLinesCosts[2]);
         }
 
         else if (selectionLines == optionsLinesMode[1])
         {
-            if (userCredit >= optionsLinesCosts[1])
-            {
-                isMoneyEnough = true;
-                gameMode = optionsLinesMode[1];
-                userCredit -= optionsLinesCosts[1];
-                Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
-                Console.WriteLine("---------------------------------------------------------------------------");
-            }
-            else
-            {
-                isMoneyEnough = false;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {optionsLinesCosts[1]}$");
-                Console.WriteLine("Please select another option");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
+            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[1], optionsLinesCosts[1]);
         }
 
         else if (selectionLines == optionsLinesMode[0])
         {
-            if (userCredit >= optionsLinesCosts[0])
-            {
-                isMoneyEnough = true;
-                gameMode = optionsLinesMode[0];
-                userCredit -= optionsLinesCosts[0];
-                Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
-                Console.WriteLine("---------------------------------------------------------------------------");
-            }
-            else
-            {
-                isMoneyEnough = false;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {optionsLinesCosts[0]}$");
-                Console.WriteLine("Please select another option");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
+            (isMoneyEnough, userCredit, gameMode) = CheckingUserCredit(userCredit, optionsLinesMode[0], optionsLinesCosts[0]);
         }
 
         return (gameMode, userCredit, isMoneyEnough);
     }
 
+    /// <summary>
+    /// This enable to check if the userCredit is enough or not
+    /// </summary>
+    /// <param name="userCredit"></param>
+    /// <param name="optionsLinesMode"></param>
+    /// <param name="selectedBetCost"></param>
+    /// <returns></returns>
+    public static (bool,int,int) CheckingUserCredit(int userCredit, int optionsLinesMode, int selectedBetCost)
+    {
+        bool isMoneyEnough;
+        int gameMode;
+        
+        if (userCredit >= selectedBetCost)
+        {
+            isMoneyEnough = true;
+            gameMode = optionsLinesMode;
+            userCredit -= selectedBetCost;
+            Console.WriteLine($"Your current credit: {userCredit} and selected bet is {gameMode} Lines");
+            Console.WriteLine("---------------------------------------------------------------------------");
+        }
+        else
+        {
+            isMoneyEnough = false;
+            gameMode = 0;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {selectedBetCost}$");
+            Console.WriteLine("Please select another option");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
 
+        return (isMoneyEnough, userCredit, gameMode);
+    }
+    
     ///  <summary>
     /// This method feeds randomly the grid with the values
     ///  </summary>
