@@ -35,37 +35,42 @@ public class Logic
     public static int AddUserCredit(int userCredit, int CREDIT_DELTA)
     {
         userCredit += CREDIT_DELTA;
-        
         return userCredit;
     }
 
 
-    public static int CheckingTheCombinations(int gameModus, int userCredit, List<int> optionsLinesMode,
+    public static (int userCredit, int wonInTheBet) CheckingTheCombinations(int gameModus, int userCredit, List<int> optionsLinesMode,
         int[,] userArray, int winnersDelta)
     {
-        
         //With this game Modus we only check the Middle horizontal line
+        int wonInTheBet = 0;
+        int wonInTheBetHorizontal;
+        int wonInTheBetVertical;
+        int wonInTheBetDiagonal;
+        
         if (gameModus == optionsLinesMode[0])
         {
             //From middle horizontal Line
-            userCredit = CheckingHorizontalLine(userArray, winnersDelta, userCredit);
+            (userCredit, wonInTheBet) = CheckingHorizontalLine(userArray, winnersDelta, userCredit);
         }
         
         //With this game Modus we only check the all horizontal lines
         if (gameModus == optionsLinesMode[1])
         {
             //From Horizonal Lines
-            userCredit = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
+            (userCredit, wonInTheBet) = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
         }
 
         //With this game Modus we only check the all vertical and horizontal lines
         else if (gameModus == optionsLinesMode[2])
         {
             //From Horizonal Lines
-            userCredit = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
-
+            (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
+            
             //From Vertical Lines
-            userCredit = CheckingAllVerticalLines(userArray, winnersDelta, userCredit);
+            (userCredit, wonInTheBetVertical) = CheckingAllVerticalLines(userArray, winnersDelta, userCredit);
+            
+            wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical;
         }
 
 
@@ -73,28 +78,28 @@ public class Logic
         else if (gameModus == optionsLinesMode[3])
         {
                 //From all Horizonal Lines
-                userCredit = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
+                (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, winnersDelta, userCredit);
 
                 //From Vertical Lines
-                userCredit = CheckingAllVerticalLines(userArray, winnersDelta, userCredit);
+                (userCredit, wonInTheBetVertical) = CheckingAllVerticalLines(userArray, winnersDelta, userCredit);
 
                 //From Diagonal Lines
-                userCredit = CheckingDiagagonals(userArray, winnersDelta, userCredit);
+                (userCredit, wonInTheBetDiagonal) = CheckingDiagonals(userArray, winnersDelta, userCredit);
+                
+                wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical + wonInTheBetDiagonal;
                 
         }
-
-        UiMethods.ShowsCredit(userCredit);
-        return userCredit;
+        return (userCredit,  wonInTheBet);
         }
     
 
 
     //Methods area
     // check only one middle line
-    public static int CheckingHorizontalLine(int[,] userArray, int winnerdelta, int userCredit)
+    public static (int, int) CheckingHorizontalLine(int[,] userArray, int winnerdelta, int userCredit)
     {
-        string message;
-        int wonByMiddleLine;
+        int wonByMiddleLine = 0;
+        
         int middleRow = userArray.GetLength(0) / 2;
         int columns = userArray.GetLength(1);
         int first = userArray[middleRow, 0];
@@ -102,26 +107,25 @@ public class Logic
         {
             if (userArray[middleRow, column] != first)
             {
-                return userCredit;
+                return (userCredit, wonByMiddleLine);
             }
         }
         
         wonByMiddleLine = winnerdelta;
-        message = $"Well done, you got {wonByMiddleLine}$ from the middle line!";
         userCredit += wonByMiddleLine;
-        UiMethods.PrintingWinnerText(message);
-        return userCredit;
+        
+        return (userCredit, wonByMiddleLine) ;
     }
 
 
     //check all horizontal Lines
-    public static int CheckingAllHorizontalLines(int[,] userArray, int winnerdelta, int userCredit)
+    public static (int userCredit, int) CheckingAllHorizontalLines(int[,] userArray, int winnerdelta, int userCredit)
     {
-        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByHorizontalLines = 0;
         bool anyRowWinning = false;
+        
         for (int row = 0; row < rows; row++)
         {
             int first = userArray[row, 0];
@@ -145,22 +149,19 @@ public class Logic
         if (anyRowWinning)
         {
             //a row is winning
-            message = $"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!";
-            userCredit += wonByHorizontalLines;
-            UiMethods.PrintingWinnerText(message);
+            userCredit += wonByHorizontalLines; 
         }
-        return userCredit;
+        return (userCredit,  wonByHorizontalLines);
     }
 
     //check all Vertical Lines
-    public static int CheckingAllVerticalLines(int[,] userArray, int winnerDelta, int userCredit)
+    public static (int userCredit, int) CheckingAllVerticalLines(int[,] userArray, int winnerDelta, int userCredit)
     {
-        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByVerticalLines = 0;
         bool anyColumnWinning = false;
-
+        
         for (int column = 0; column < columns; column++)
         {
             int first = userArray[0, column];
@@ -183,17 +184,14 @@ public class Logic
 
         if (anyColumnWinning)
         {
-            message = $"Well done, you got {wonByVerticalLines}$ from the vertical lines!";
             userCredit += wonByVerticalLines;
-            UiMethods.PrintingWinnerText(message);
             
         }
-        return userCredit; //no column winning
+        return (userCredit,  wonByVerticalLines); //no column winning
     }
 
-    public static int CheckingDiagagonals(int[,] userArray, int winningdelta, int userCredit)
+    public static (int userCredit, int) CheckingDiagonals(int[,] userArray, int winningdelta, int userCredit)
     {
-        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         bool isDiagonal1AWinner = true;
@@ -201,6 +199,7 @@ public class Logic
         int wonByDiagonals = 0;
         bool isAnyDiagonalLineWinning = false;
         int firstElementDiagonal1 = userArray[0, 0];
+        
         for (int row = 1, col = 1; row < rows && col < columns; row++, col++)
         {
             if (userArray[row, col] != firstElementDiagonal1)
@@ -235,12 +234,9 @@ public class Logic
 
         if (isAnyDiagonalLineWinning)
         {
-            message = $"Well done, you got {wonByDiagonals}$ from the diagonal lines!";
-            
             userCredit += wonByDiagonals;
             
-            UiMethods.PrintingWinnerText(message);
         }
-        return userCredit;
+        return (userCredit,  wonByDiagonals);
     }
 }

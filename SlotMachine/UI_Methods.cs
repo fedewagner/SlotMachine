@@ -269,12 +269,14 @@ public class UiMethods
         Console.WriteLine("+");
     }
 
-    static public void PrintingWinnerText(string winnerMessage)
+    static public void PrintingWinnerText(int wonInTheBet)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(winnerMessage);
-        Console.ForegroundColor = ConsoleColor.Gray;
-
+        if (wonInTheBet >= 1)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You won {wonInTheBet}$ in the bet");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
     }
 
     /// <summary>

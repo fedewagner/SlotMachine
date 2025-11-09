@@ -66,8 +66,7 @@
                 (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit, CREDIT_DELTA, optionsMenu);
                 
             } while (optionsMenu.Contains(selection) && !gameMode); //if the gamemode is activated then we leave this loop
-            
-          
+
             //in case the user has more money, then he can play
             while (userCredit > 0)
             {
@@ -94,8 +93,16 @@
                     UiMethods.PrintingGrid(userArray);
 
                     //Checking the combinations and calculating the new user credit if wins
-                    userCredit = Logic.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
+                    int wonInTheBet;
+                    
+                    (userCredit, wonInTheBet) = Logic.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
                         WINNING_DELTA);
+                    
+                    //Printing message
+                    UiMethods.PrintingWinnerText(wonInTheBet);
+                    
+                    //printing user credit
+                    UiMethods.ShowsCredit(userCredit);
                 }
             }
 
