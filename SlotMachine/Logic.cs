@@ -239,7 +239,6 @@ public class Logic
             
             userCredit += wonByDiagonals;
             
-            //PRINT WON BY DIAGONALS
             UiMethods.PrintingWinnerText(message);
         }
         return userCredit;
