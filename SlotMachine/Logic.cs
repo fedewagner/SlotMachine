@@ -228,13 +228,13 @@ public class Logic
 
         if (isDiagonal1AWinner)
         {
-            wonByDiagonals = +winningdelta;
+            wonByDiagonals += winningdelta;
             isAnyDiagonalLineWinning = true;
         }
 
         if (isDiagonal2AWinner)
         {
-            wonByDiagonals = +winningdelta;
+            wonByDiagonals += winningdelta;
             isAnyDiagonalLineWinning = true;
         }
 
