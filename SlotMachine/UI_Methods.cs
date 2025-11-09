@@ -269,7 +269,7 @@ public class UiMethods
         Console.WriteLine("+");
     }
 
-    static public void PrintingWinnerText(string winnerMessage, int userCredit )
+    static public void PrintingWinnerText(string winnerMessage)
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine(winnerMessage);

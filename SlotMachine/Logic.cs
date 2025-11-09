@@ -80,8 +80,7 @@ public class Logic
 
                 //From Diagonal Lines
                 userCredit = CheckingDiagagonals(userArray, winnersDelta, userCredit);
-
-            
+                
         }
 
         UiMethods.ShowsCredit(userCredit);
@@ -109,11 +108,8 @@ public class Logic
         
         wonByMiddleLine = winnerdelta;
         message = $"Well done, you got {wonByMiddleLine}$ from the middle line!";
-        
         userCredit += wonByMiddleLine;
-        
-        UiMethods.PrintingWinnerText(message, userCredit);
-        
+        UiMethods.PrintingWinnerText(message);
         return userCredit;
     }
 
@@ -151,8 +147,7 @@ public class Logic
             //a row is winning
             message = $"Well done, you got {wonByHorizontalLines}$ from the horizontal lines!";
             userCredit += wonByHorizontalLines;
-            UiMethods.PrintingWinnerText(message, userCredit);
-            
+            UiMethods.PrintingWinnerText(message);
         }
         return userCredit;
     }
@@ -190,7 +185,7 @@ public class Logic
         {
             message = $"Well done, you got {wonByVerticalLines}$ from the vertical lines!";
             userCredit += wonByVerticalLines;
-            UiMethods.PrintingWinnerText(message, userCredit);
+            UiMethods.PrintingWinnerText(message);
             
         }
         return userCredit; //no column winning
@@ -245,7 +240,7 @@ public class Logic
             userCredit += wonByDiagonals;
             
             //PRINT WON BY DIAGONALS
-            UiMethods.PrintingWinnerText(message, userCredit);
+            UiMethods.PrintingWinnerText(message);
         }
         return userCredit;
     }
