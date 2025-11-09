@@ -94,7 +94,7 @@ public class Logic
     // check only one middle line
     public static int CheckingHorizontalLine(int[,] userArray, int winnerdelta, int userCredit)
     {
-        string message = "";
+        string message;
         int wonByMiddleLine;
         int middleRow = userArray.GetLength(0) / 2;
         int columns = userArray.GetLength(1);
@@ -121,7 +121,7 @@ public class Logic
     //check all horizontal Lines
     public static int CheckingAllHorizontalLines(int[,] userArray, int winnerdelta, int userCredit)
     {
-        string message = "";
+        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByHorizontalLines = 0;
@@ -158,9 +158,9 @@ public class Logic
     }
 
     //check all Vertical Lines
-    public static int CheckingAllVerticalLines(int[,] userArray, int winnerdelta, int userCredit)
+    public static int CheckingAllVerticalLines(int[,] userArray, int winnerDelta, int userCredit)
     {
-        string message = "";
+        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         int wonByVerticalLines = 0;
@@ -172,7 +172,7 @@ public class Logic
             bool columnWinning = true;
             for (int row = 1; row < rows; row++)
             {
-                if (userArray[row, column] != first) //this row doesn't win
+                if (userArray[row, column] != first) //this column doesn't win
                 {
                     columnWinning = false;
                     break; //this row doesn't win
@@ -181,7 +181,7 @@ public class Logic
 
             if (columnWinning)
             {
-                wonByVerticalLines += winnerdelta;
+                wonByVerticalLines += winnerDelta;
                 anyColumnWinning = true;
             }
         }
@@ -189,6 +189,7 @@ public class Logic
         if (anyColumnWinning)
         {
             message = $"Well done, you got {wonByVerticalLines}$ from the vertical lines!";
+            userCredit += wonByVerticalLines;
             UiMethods.PrintingWinnerText(message, userCredit);
             
         }
@@ -197,7 +198,7 @@ public class Logic
 
     public static int CheckingDiagagonals(int[,] userArray, int winningdelta, int userCredit)
     {
-        string message = "";
+        string message;
         int rows = userArray.GetLength(0);
         int columns = userArray.GetLength(1);
         bool isDiagonal1AWinner = true;
