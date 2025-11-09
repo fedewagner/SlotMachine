@@ -69,7 +69,7 @@ public class UiMethods
             }
             case "f":
             {
-                userCredit = Logic.addUserCredit(userCredit, CREDIT_DELTA);
+                userCredit = Logic.AddUserCredit(userCredit, CREDIT_DELTA);
                 //Prints credit
                 ShowsCredit(userCredit);
                 break;
@@ -261,6 +261,18 @@ public class UiMethods
         Console.WriteLine("+");
     }
 
+    static public void PrintingWinnerText(string winnerMessage, int totalWon, int userCredit )
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(winnerMessage);
+        Console.WriteLine($"You won {totalWon}$!");
+
+        ShowsCredit(userCredit);
+        
+        Console.ForegroundColor = ConsoleColor.Gray;
+
+    }
+
     /// <summary>
     /// This method is to check all combinations, calculate the total won money and print it in the screen
     /// </summary>
@@ -270,120 +282,7 @@ public class UiMethods
     /// <param name="userArray"></param>
     /// <param name="winnersDelta"></param>
     /// <returns></returns>
-    public static int CheckingTheCombinations(int gameMode, int userCredit, List<int> optionsLinesMode,
-        int[,] userArray, int winnersDelta)
-    {
-        //With this game Modus we only check the Middle horizontal line
-        if (gameMode == optionsLinesMode[0])
-        {
-            //From middle horizontal Line
-            (var isMiddleLineAWinner, int wonByHorizontalLine, string messageMiddleLine) =
-                Logic.CheckingHorizontalLine(userArray, winnersDelta);
-            if (isMiddleLineAWinner)
-            {
-                userCredit += wonByHorizontalLine;
-                Console.WriteLine(messageMiddleLine);
-            }
-        }
-        //With this game Modus we only check the all horizontal lines
-        else if (gameMode == optionsLinesMode[1])
-        {
-            //From Horizonal Lines
-            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
-                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
-            if (isAnyHorizontalLineWinning)
-            {
-                var totalWon = wonByHorizontalLines;
-                userCredit += totalWon;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(messageHLines);
-                Console.WriteLine($"You won {totalWon}$!");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
-        }
-
-        //With this game Modus we only check the all vertical and horizontal lines
-        else if (gameMode == optionsLinesMode[2])
-        {
-            //From Horizonal Lines
-            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
-                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
-
-            //From Vertical Lines
-            (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
-                Logic.CheckingAllVerticalLines(userArray, winnersDelta);
-
-            if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning)
-            {
-                var totalWon = wonByHorizontalLines + wonByVerticalLines;
-                userCredit += totalWon;
-                Console.ForegroundColor = ConsoleColor.Green;
-                if (messageHLines != "")
-                {
-                    Console.WriteLine(messageHLines);
-                }
-
-                if (messageVLines != "")
-                {
-                    Console.WriteLine(messageVLines);
-                }
-
-                Console.WriteLine($"You won {totalWon}$!");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
-        }
-
-        //With this gameMode we only check the all vertical and horizontal lines and diagonals
-        else if (gameMode == optionsLinesMode[3])
-        {
-            //From all Horizonal Lines
-            (var isAnyHorizontalLineWinning, int wonByHorizontalLines, string messageHLines) =
-                Logic.CheckingAllHorizontalLines(userArray, winnersDelta);
-
-            //From Vertical Lines
-            (var isAnyVerticalLineWinning, int wonByVerticalLines, string messageVLines) =
-                Logic.CheckingAllVerticalLines(userArray, winnersDelta);
-
-            //From Diagonal Lines
-            (var isAnyDiagonalLineWinning, int wonByDiagonals, string messageDLines) =
-                Logic.CheckingDiagagonals(userArray, winnersDelta);
-
-
-            if (isAnyHorizontalLineWinning || isAnyVerticalLineWinning ||
-                isAnyDiagonalLineWinning)
-            {
-                var totalWon = wonByHorizontalLines + wonByVerticalLines + wonByDiagonals;
-                userCredit += totalWon;
-                Console.ForegroundColor = ConsoleColor.Green;
-                if (messageHLines != "")
-                {
-                    Console.WriteLine(messageHLines);
-                }
-
-                if (messageVLines != "")
-                {
-                    Console.WriteLine(messageVLines);
-                }
-
-                if (messageDLines != "")
-                {
-                    Console.WriteLine(messageDLines);
-                }
-
-                Console.WriteLine($"You won {totalWon}$!");
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
-        }
-
-        if (userCredit != 0)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"The user credit is: {userCredit}$");
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
-
-        return userCredit;
-    }
+    
 
     public static void AskingUserToLeaveBecauseOfNoMoneyLeft(int userCredit)
     {

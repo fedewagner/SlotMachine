@@ -80,11 +80,13 @@
                 //checking the selected mode
                 (userCredit, isMoneyEnough) = UiMethods.CheckingSelectedMode(userCredit, gameModus, optionsLinesModus ,optionsLinesCosts);
                 
+                //if user want to check out
                 if (gameModus == OPTION_CHECK_OUT)
                 {
                     break; // we go out from Playing Modus
                 }
-
+                
+                //if user has enough money
                 if (isMoneyEnough)
                 {
                     //feed randomly the grid with the values
@@ -95,7 +97,7 @@
                     UiMethods.PrintingGrid(userArray);
 
                     //Checking the combinations and calculating the new user credit
-                    userCredit = UiMethods.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
+                    userCredit = Logic.CheckingTheCombinations(gameModus, userCredit, optionsLinesModus, userArray,
                         WINNING_DELTA);
                 }
             }
