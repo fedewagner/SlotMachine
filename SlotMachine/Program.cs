@@ -10,7 +10,7 @@
             
             //welcome and interact with UI to add credit
             int userCredit = 0;
-            bool gameMode;
+            bool gameMode = false;
             string selection;
             
             //Adding credit for the user and asking for play mode
@@ -22,9 +22,27 @@
                 //or go into game mode
                 UiMethods.OfferGamingMode();
                 
-                //read key method
-                (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit);
+                //read key method and avoid other inputs
+                selection = UiMethods.CheckUserKeyInput();
                 
+                //Switch if F or P for checking the pressed key
+                switch (selection)
+                {
+                    case Constants.KEY_FOR_GAMING: //user pressed "p"
+                    {
+                        gameMode = UiMethods.CheckEnoughMoney(userCredit);
+                        break;
+                    }
+                    case Constants.KEY_FOR_ADDING_CREDIT: //user pressed "f"
+                    {
+                        userCredit = Logic.AddUserCredit(userCredit);
+                        //Prints credit
+                        UiMethods.ShowsCredit(userCredit);
+                        break;
+                    }
+                }
+                
+
             } while ((selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING ) && !gameMode); //if the gamemode is activated then we leave this loop
 
             //in case the user has more money, then he can play

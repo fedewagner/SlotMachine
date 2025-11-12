@@ -36,56 +36,45 @@ public class UiMethods
 
 
 
-/// <summary>
-/// read the key entered by the user and then based on the choice, either add credit or go to game mode
-/// </summary>
-/// <param name="userCredit"></param>
-/// <returns></returns>
-    public static (int, bool, string) ReadUserKey( int userCredit)
+    /// <summary>
+    /// read the key entered by the user 
+    /// </summary>
+    /// <returns></returns>
+    public static string CheckUserKeyInput()
     {
-        bool gameMode = false;
         string selection;
-        
+
         do
         {
-           //read key method
+            //read key method
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
 
-            if (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING ))
+            if (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING))
             {
                 Console.WriteLine($"Please press ´{Constants.KEY_FOR_ADDING_CREDIT}´ or ´{Constants.KEY_FOR_GAMING}´ ");
             }
-        } while (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING )); //repeat if the key is not valid
-        
+        } while (!(selection == Constants.KEY_FOR_ADDING_CREDIT ||
+                   selection == Constants.KEY_FOR_GAMING)); //repeat if the key is not valid
 
-        switch (selection)
+        return selection;
+    }
+    
+    public static bool CheckEnoughMoney(int userCredit)
+    {
+        bool gameMode = userCredit > 0;
+
+        if (!gameMode)
         {
-            case Constants.KEY_FOR_GAMING:
-            {
-                if (userCredit > 0)
-                {gameMode = true; break;}
-                Console.WriteLine($"Your current credit {userCredit}$ isn´t enough!");
-                break;
-            }
-            case Constants.KEY_FOR_ADDING_CREDIT:
-            {
-                userCredit = Logic.AddUserCredit(userCredit);
-                //Prints credit
-                ShowsCredit(userCredit);
-                break;
-            }
-            
+            Console.WriteLine($"Your current credit {userCredit}$ isn´t enough!");    
         }
-        return (userCredit, gameMode, selection);
+        
+        return gameMode;
     }
 
 
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
-    /// <param name="userCredit">Is the user credit</param>
-    /// <param name="optionsLinesMode"></param>
-    /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
     public static int AskForLinesSelection()
     {
@@ -124,8 +113,6 @@ public class UiMethods
     /// </summary>
     /// <param name="userCredit"></param>
     /// <param name="gameModus"></param>
-    /// <param name="optionsLinesMode"></param>
-    /// <param name="optionsLinesCosts"></param>
     /// <returns></returns>
     public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus)
     {
@@ -178,12 +165,12 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Gray;
         Console.WriteLine("---------------------------------------------------------------------------");
     }
-    
+
     /// <summary>
-    /// This enable to check if the userCredit is enough or not
+    /// This enables to check if the userCredit is enough or not
     /// </summary>
     /// <param name="userCredit"></param>
-    /// <param name="optionsLinesMode"></param>
+    /// <param name="gameModus"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
     public static (bool,int) RestingUsersCredit(int userCredit, int gameModus, int selectedBetCost)
