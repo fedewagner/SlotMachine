@@ -57,19 +57,6 @@ public class UiMethods
         return selection;
     }
     
-    public static bool CheckEnoughMoney(int userCredit)
-    {
-        bool gameMode = userCredit > 0;
-
-        if (!gameMode)
-        {
-            Console.WriteLine($"Your current credit {userCredit}$ isn´t enough!");    
-        }
-        
-        return gameMode;
-    }
-
-
     /// <summary>
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>

@@ -10,8 +10,10 @@
             
             //welcome and interact with UI to add credit
             int userCredit = 0;
-            bool gameMode = false;
+            bool playingMode = false;
+            bool enoughMoney = false;
             string selection;
+            
             
             
             //Adding credit for the user and asking for play mode
@@ -33,7 +35,7 @@
                 {
                     case Constants.KEY_FOR_GAMING: //user pressed "p"
                     {
-                        gameMode = UiMethods.CheckEnoughMoney(userCredit);
+                        playingMode = true;
                         break;
                     }
                     case Constants.KEY_FOR_ADDING_CREDIT: //user pressed "f"
@@ -48,7 +50,7 @@
                 //variable for checking logic
                 isAddingMoneyOrPlaying = (selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING);
 
-            } while (isAddingMoneyOrPlaying && !gameMode); //if the gamemode is activated then we leave this loop
+            } while (isAddingMoneyOrPlaying && !playingMode); //if the gamemode is activated then we leave this loop
 
             //in case the user has more money, then he can play
             while (userCredit > 0)
@@ -64,6 +66,7 @@
                     {
                     
                     case Constants.OPTION_8_LINES:
+                        
                         isMoneyEnough = UiMethods.CheckingCredit(userCredit, Constants.COST_8_LINES);
                         if (isMoneyEnough)
                         {
@@ -115,7 +118,11 @@
                     //Checking the combinations and calculating the new user credit if wins
                     int wonInTheBet;
                     
-                    (userCredit, wonInTheBet) = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
+                    wonInTheBet = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
+                    
+                    //add the won money to the credit
+                    userCredit = Logic.AddTheWonMoney(userCredit, wonInTheBet);
+                    
                     
                     //Printing message
                     UiMethods.PrintingWinnerText(wonInTheBet);
