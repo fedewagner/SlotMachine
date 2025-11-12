@@ -36,10 +36,8 @@ public class Logic
     }
 
 
-    public static int CheckingTheCombinations(int gameModus, int userCredit,
-        int[,] userArray)
+    public static int CheckingTheCombinations(int gameModus, int[,] userArray)
     {
-        //With this game Modus we only check the Middle horizontal line
         int wonInTheBet = 0;
 
         switch (gameModus)
@@ -59,7 +57,6 @@ public class Logic
                 int wonInTheBetVertical = CheckingAllVerticalLines(userArray);
 
                 wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical;
-                
                 break;
             
             case Constants.OPTION_8_LINES:
@@ -96,7 +93,6 @@ public class Logic
                 return wonByMiddleLine;
             }
         }
-        
         wonByMiddleLine = Constants.WINNING_DELTA;
         
         return wonByMiddleLine ;
@@ -199,7 +195,6 @@ public class Logic
         {
             wonByDiagonals += Constants.WINNING_DELTA;
         }
-
      
         return wonByDiagonals;
     }

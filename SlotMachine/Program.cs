@@ -92,7 +92,7 @@
 
                     //Checking the combinations and calculating the new user credit if wins
 
-                    int wonInTheBet = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
+                    int wonInTheBet = Logic.CheckingTheCombinations(gameModus, userArray);
 
                     //add the won money to the credit
                     userCredit = Logic.AddMoneyToUsersCredit(userCredit, wonInTheBet);
