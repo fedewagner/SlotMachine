@@ -60,14 +60,14 @@ public class UiMethods
 
         switch (selection)
         {
-            case "p":
+            case Constants.KEY_FOR_GAMING:
             {
                 if (userCredit > 0)
                 {gameMode = true; break;}
                 Console.WriteLine($"Your current credit {userCredit}$ isn´t enough!");
                 break;
             }
-            case "f":
+            case Constants.KEY_FOR_ADDING_CREDIT:
             {
                 userCredit = Logic.AddUserCredit(userCredit);
                 //Prints credit
