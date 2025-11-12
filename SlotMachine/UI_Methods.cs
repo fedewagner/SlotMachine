@@ -1,5 +1,3 @@
-using System.Xml.Schema;
-
 namespace SlotMachine;
 
 public class UiMethods
@@ -126,7 +124,6 @@ public class UiMethods
     /// This enables to check if the userCredit is enough or not
     /// </summary>
     /// <param name="userCredit"></param>
-    /// <param name="gameModus"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
     public static bool CheckingCredit(int userCredit, int selectedBetCost)
@@ -240,5 +237,11 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"You finished playing with the credit: {userCredit}$");
         Console.Write("You don't have credits to play, please insert more money to keep playing");
+    }
+
+    public static void PrintError()
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Selected mode is not correct!");
     }
 }

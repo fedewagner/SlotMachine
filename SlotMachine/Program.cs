@@ -11,11 +11,8 @@
             //welcome and interact with UI to add credit
             int userCredit = 0;
             bool playingMode = false;
-            bool enoughMoney = false;
-            string selection;
-            
-            
-            
+
+
             //Adding credit for the user and asking for play mode
             bool isAddingMoneyOrPlaying;
             
@@ -28,7 +25,7 @@
                 UiMethods.OfferGamingMode();
                 
                 //read key method and avoid other inputs
-                selection = UiMethods.CheckUserKeyInput();
+                string selection = UiMethods.CheckUserKeyInput();
                 
                 //Switch if F or P for checking the pressed key
                 switch (selection)
@@ -61,42 +58,20 @@
                 //checking the credit
 
                 bool isMoneyEnough = false;
-               
-                switch (gameModus)
+  
+                if (Constants.MODI_COST_MAP.TryGetValue(gameModus, out int costPerLine))
+                {
+                    
+                    isMoneyEnough = UiMethods.CheckingCredit(userCredit, costPerLine);
+                    
+                    if (isMoneyEnough)
+                    { userCredit = UiMethods.RestingUsersCredit(userCredit, costPerLine); }
+
+                    else
                     {
+                        UiMethods.PrintError();
+                    }
                     
-                    case Constants.OPTION_8_LINES:
-                        
-                        isMoneyEnough = UiMethods.CheckingCredit(userCredit, Constants.COST_8_LINES);
-                        if (isMoneyEnough)
-                        {
-                            userCredit = UiMethods.RestingUsersCredit(userCredit, Constants.COST_8_LINES);
-                        }
-                        break;
-                    
-                    case Constants.OPTION_6_LINES:
-                        isMoneyEnough = UiMethods.CheckingCredit(userCredit, Constants.COST_6_LINES);
-                        if (isMoneyEnough)
-                        {
-                            userCredit = UiMethods.RestingUsersCredit(userCredit, Constants.COST_6_LINES);
-                        }
-                        break;
-                    
-                    case Constants.OPTION_3_LINES:
-                        isMoneyEnough = UiMethods.CheckingCredit(userCredit, Constants.COST_3_LINES);
-                        if (isMoneyEnough)
-                        {
-                            userCredit = UiMethods.RestingUsersCredit(userCredit, Constants.COST_3_LINES);
-                        }
-                        break;
-                    
-                    case Constants.OPTION_1_LINE:
-                        isMoneyEnough = UiMethods.CheckingCredit(userCredit, Constants.COST_1_LINE);
-                        if (isMoneyEnough)
-                        {
-                            userCredit = UiMethods.RestingUsersCredit(userCredit, Constants.COST_1_LINE);
-                        }
-                        break;
                 }
                 
                 //if user want to check out

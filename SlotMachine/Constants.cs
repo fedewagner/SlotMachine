@@ -30,4 +30,12 @@ public class Constants
     public const int COST_6_LINES = 8;
     public const int COST_8_LINES = 12;
     
+    public static  readonly Dictionary<int, int> MODI_COST_MAP = new Dictionary<int, int>
+    {
+        { OPTION_8_LINES, COST_8_LINES },
+        { OPTION_6_LINES, COST_6_LINES },
+        { OPTION_3_LINES, COST_3_LINES },
+        { OPTION_1_LINE,  COST_1_LINE  }
+    };
+    
 }
