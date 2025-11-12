@@ -267,11 +267,7 @@ public class UiMethods
     /// <summary>
     /// This method is to check all combinations, calculate the total won money and print it in the screen
     /// </summary>
-    /// <param name="gameMode"></param>
     /// <param name="userCredit"></param>
-    /// <param name="optionsLinesMode"></param>
-    /// <param name="userArray"></param>
-    /// <param name="winnersDelta"></param>
     /// <returns></returns>
     
 
