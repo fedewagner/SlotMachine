@@ -35,7 +35,6 @@ public class UiMethods
     }
 
 
-
     /// <summary>
     /// read the key entered by the user 
     /// </summary>
@@ -53,8 +52,7 @@ public class UiMethods
             {
                 Console.WriteLine($"Please press ´{Constants.KEY_FOR_ADDING_CREDIT}´ or ´{Constants.KEY_FOR_GAMING}´ ");
             }
-        } while (!(selection == Constants.KEY_FOR_ADDING_CREDIT ||
-                   selection == Constants.KEY_FOR_GAMING)); //repeat if the key is not valid
+        } while (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING) ); //repeat if the key is not valid
 
         return selection;
     }
@@ -105,39 +103,10 @@ public class UiMethods
                               selectedLine != Constants.OPTION_CHECK_OUT));
         
         gameMode = selectedLine;
-        return (gameMode);
+        
+        return gameMode;
     }
-
-    /// <summary>
-    /// This method check the Selected mode by the user and then check if the money is enough returning a TRUE if the money is available
-    /// </summary>
-    /// <param name="userCredit"></param>
-    /// <param name="gameModus"></param>
-    /// <returns></returns>
-    public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus)
-    {
-        bool isMoneyEnough = true;
-
-        switch (gameModus)
-        {
-            case Constants.OPTION_CHECK_OUT:
-                UserChecksOut(userCredit);
-                break;
-            case Constants.OPTION_8_LINES:
-                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, Constants.COST_8_LINES);
-                break;
-            case Constants.OPTION_6_LINES:
-                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_6_LINES);
-                break;
-            case Constants.OPTION_3_LINES:
-                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_3_LINES);
-                break;
-            case Constants.OPTION_1_LINE:
-                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_1_LINE);
-                break;
-        }
-        return (userCredit, isMoneyEnough);
-    }
+    
 
     //Line options with costs
     static public void PrintLineOptions()
@@ -173,29 +142,37 @@ public class UiMethods
     /// <param name="gameModus"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
-    public static (bool,int) RestingUsersCredit(int userCredit, int gameModus, int selectedBetCost)
+    public static bool CheckingCredit(int userCredit, int selectedBetCost)
     {
         bool isMoneyEnough;
+        
         if (userCredit >= selectedBetCost)
         {
             isMoneyEnough = true;
-            userCredit -= selectedBetCost;
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"Your current credit: {userCredit}$ and selected bet is {gameModus} Lines");
+            Console.WriteLine($"Your credit: {userCredit}$ is enough");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
         }
         else
         {
             isMoneyEnough = false;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {selectedBetCost}$");
             Console.WriteLine("Please select another option");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        return (isMoneyEnough, userCredit);
+        return isMoneyEnough;
     }
+    
+    public static int RestingUsersCredit(int userCredit, int selectedBetCost)
+    {
+        userCredit -= selectedBetCost;
+        return userCredit;
+    }
+    
+    
+    
     
     ///  <summary>
     /// This method feeds randomly the grid with the values
