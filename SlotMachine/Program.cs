@@ -8,21 +8,14 @@
             //give intro an explain rules
             UiMethods.WelcomeUser();
             
-            //welcome and interact with UI to add credit
+            //variables declarations
             int userCredit = 0;
             bool playingMode = false;
-
-
-            //Adding credit for the user and asking for play mode
             bool isAddingMoneyOrPlaying;
             
             do
             {
-                //add mode credit 
-                UiMethods.OfferAddingCredit();
-            
-                //or go into game mode
-                UiMethods.OfferGamingMode();
+                UiMethods.IntroducingOptionsToTheUser();
                 
                 //read key method and avoid other inputs
                 string selection = UiMethods.CheckUserKeyInput();

@@ -20,18 +20,14 @@ public class UiMethods
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
-    public static void OfferAddingCredit()
+    public static void IntroducingOptionsToTheUser()
     {
         //uses the defined keys for adding credit
         Console.WriteLine($"If you want to add some credit (Press {Constants.KEY_FOR_ADDING_CREDIT})!");
-    }
-
-    public static void OfferGamingMode()
-    {
         Console.WriteLine($"Otherwise, to play (Press {Constants.KEY_FOR_GAMING})!");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
-
+    
 
     /// <summary>
     /// read the key entered by the user 
