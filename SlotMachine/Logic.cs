@@ -29,15 +29,9 @@ public class Logic
     }
 
 
-    public static int AddUserCredit(int userCredit)
+    public static int AddMoneyToUsersCredit(int userCredit, int moneyToAdd)
     {
-        userCredit += Constants.CREDIT_DELTA;
-        return userCredit;
-    }
-
-    public static int AddTheWonMoney(int userCredit, int wonInTheBet)
-    {
-        userCredit += wonInTheBet;
+        userCredit += moneyToAdd;
         return userCredit;
     }
 

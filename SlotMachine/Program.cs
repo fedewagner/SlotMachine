@@ -37,7 +37,7 @@
                     }
                     case Constants.KEY_FOR_ADDING_CREDIT: //user pressed "f"
                     {
-                        userCredit = Logic.AddUserCredit(userCredit);
+                        userCredit = Logic.AddMoneyToUsersCredit(userCredit, Constants.CREDIT_DELTA);
                         
                         //Prints credit
                         UiMethods.ShowsCredit(userCredit);
@@ -95,7 +95,7 @@
                     int wonInTheBet = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
 
                     //add the won money to the credit
-                    userCredit = Logic.AddTheWonMoney(userCredit, wonInTheBet);
+                    userCredit = Logic.AddMoneyToUsersCredit(userCredit, wonInTheBet);
                     
                     //Printing message
                     UiMethods.PrintingWinnerText(wonInTheBet);
