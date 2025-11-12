@@ -122,7 +122,7 @@ public class UiMethods
     /// <param name="userCredit"></param>
     /// <param name="selectedBetCost"></param>
     /// <returns></returns>
-    public static bool CheckingCredit(int userCredit, int selectedBetCost)
+    public static bool CheckingCredit(int userCredit, int selectedBetCost, int gameModus)
     {
         bool isMoneyEnough;
         
@@ -130,7 +130,7 @@ public class UiMethods
         {
             isMoneyEnough = true;
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"Your credit: {userCredit}$ is enough");
+            Console.WriteLine($"You've just selected playing with following lines amount: {gameModus}.");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("---------------------------------------------------------------------------");
         }

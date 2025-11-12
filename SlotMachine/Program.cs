@@ -57,13 +57,12 @@
                 int gameModus = UiMethods.AskForLinesSelection();
 
                 //checking the credit
-
                 bool isMoneyEnough = false;
   
                 if (Constants.MODI_COST_MAP.TryGetValue(gameModus, out int costPerLine))
                 {
                     
-                    isMoneyEnough = UiMethods.CheckingCredit(userCredit, costPerLine);
+                    isMoneyEnough = UiMethods.CheckingCredit(userCredit, costPerLine, gameModus);
                     
                     if (isMoneyEnough)
                     { userCredit = UiMethods.RestingUsersCredit(userCredit, costPerLine); }
@@ -92,13 +91,11 @@
                     UiMethods.PrintingGrid(userArray);
 
                     //Checking the combinations and calculating the new user credit if wins
-                    int wonInTheBet;
-                    
-                    wonInTheBet = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
-                    
+
+                    int wonInTheBet = Logic.CheckingTheCombinations(gameModus, userCredit, userArray);
+
                     //add the won money to the credit
                     userCredit = Logic.AddTheWonMoney(userCredit, wonInTheBet);
-                    
                     
                     //Printing message
                     UiMethods.PrintingWinnerText(wonInTheBet);
