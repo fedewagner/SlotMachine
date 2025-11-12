@@ -44,36 +44,28 @@ public class Logic
         int wonInTheBetHorizontal;
         int wonInTheBetVertical;
         int wonInTheBetDiagonal;
-        
-        if (gameModus == Constants.MODI_OPTIONS_LIST[0])
-        {
-            //From middle horizontal Line
-            (userCredit, wonInTheBet) = CheckingHorizontalLine(userArray, userCredit);
-        }
-        
-        //With this game Modus we only check the all horizontal lines
-        if (gameModus == Constants.MODI_OPTIONS_LIST[1])
-        {
-            //From Horizonal Lines
-            (userCredit, wonInTheBet) = CheckingAllHorizontalLines(userArray, userCredit);
-        }
 
-        //With this game Modus we only check the all vertical and horizontal lines
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[2])
+        switch (gameModus)
         {
-            //From Horizonal Lines
-            (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, userCredit);
+            case Constants.OPTION_1_LINE:
+                (userCredit, wonInTheBet) = CheckingHorizontalLine(userArray, userCredit);
+                break;
             
-            //From Vertical Lines
-            (userCredit, wonInTheBetVertical) = CheckingAllVerticalLines(userArray, userCredit);
+            case Constants.OPTION_3_LINES:
+                (userCredit, wonInTheBet) = CheckingAllHorizontalLines(userArray, userCredit);
+                break;
             
-            wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical;
-        }
+            case Constants.OPTION_6_LINES:
+                //From Horizonal Lines
+                (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, userCredit);
 
+                //From Vertical Lines
+                (userCredit, wonInTheBetVertical) = CheckingAllVerticalLines(userArray, userCredit);
 
-        //With this gameMode we only check the all vertical and horizontal lines and diagonals
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[3])
-        {
+                wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical;
+                break;
+            
+            case Constants.OPTION_8_LINES:
                 //From all Horizonal Lines
                 (userCredit, wonInTheBetHorizontal) = CheckingAllHorizontalLines(userArray, userCredit);
 
@@ -82,13 +74,15 @@ public class Logic
 
                 //From Diagonal Lines
                 (userCredit, wonInTheBetDiagonal) = CheckingDiagonals(userArray, userCredit);
-                
+
                 wonInTheBet = wonInTheBetHorizontal + wonInTheBetVertical + wonInTheBetDiagonal;
-                
+
+                break;
         }
-        return (userCredit,  wonInTheBet);
-        }
-    
+
+        return (userCredit, wonInTheBet);
+
+    }
 
 
     //Methods area

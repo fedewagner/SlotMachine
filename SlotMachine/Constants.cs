@@ -30,16 +30,4 @@ public class Constants
     public const int COST_6_LINES = 8;
     public const int COST_8_LINES = 12;
     
-// List declarations with the packed constants
-    //List for option with amount of lines
-    public static readonly List<int> MODI_OPTIONS_LIST = new() { OPTION_1_LINE, OPTION_3_LINES, OPTION_6_LINES, OPTION_8_LINES, OPTION_CHECK_OUT };
-    
-    //List for the cost of the different options
-    public static readonly List<int> LINES_OPTIONS_COSTS_LIST = new() { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
-    
-
-
-
-    
-    
 }

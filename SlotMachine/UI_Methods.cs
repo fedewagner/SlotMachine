@@ -90,7 +90,7 @@ public class UiMethods
     public static int AskForLinesSelection()
     {
         //Printing options for the user and the line selection
-        PrintLineOptions(Constants.MODI_OPTIONS_LIST, Constants.LINES_OPTIONS_COSTS_LIST);
+        PrintLineOptions();
         
         bool success;
         int selectedLine;
@@ -100,12 +100,20 @@ public class UiMethods
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectedLine);
-            if (!Constants.MODI_OPTIONS_LIST.Contains(selectedLine))
+            if (selectedLine != Constants.OPTION_1_LINE && 
+                selectedLine != Constants.OPTION_3_LINES && 
+                selectedLine != Constants.OPTION_6_LINES && 
+                selectedLine != Constants.OPTION_8_LINES && 
+                selectedLine != Constants.OPTION_CHECK_OUT)
             {
-                Console.WriteLine($"Please press {Constants.MODI_OPTIONS_LIST[0]}, {Constants.MODI_OPTIONS_LIST[1]}, {Constants.MODI_OPTIONS_LIST[2]}, {Constants.MODI_OPTIONS_LIST[3]} or {Constants.MODI_OPTIONS_LIST[4]}!");
+                Console.WriteLine($"Please press {Constants.OPTION_1_LINE}, {Constants.OPTION_3_LINES}, {Constants.OPTION_6_LINES}, {Constants.OPTION_8_LINES} or {Constants.OPTION_CHECK_OUT}!");
             }
             
-        } while (!success || !Constants.MODI_OPTIONS_LIST.Contains(selectedLine));
+        } while (!success || (selectedLine != Constants.OPTION_1_LINE && 
+                              selectedLine != Constants.OPTION_3_LINES && 
+                              selectedLine != Constants.OPTION_6_LINES && 
+                              selectedLine != Constants.OPTION_8_LINES && 
+                              selectedLine != Constants.OPTION_CHECK_OUT));
         
         gameMode = selectedLine;
         return (gameMode);
@@ -122,52 +130,42 @@ public class UiMethods
     public static (int, bool) CheckingSelectedMode(int userCredit, int gameModus)
     {
         bool isMoneyEnough = true;
-        
-        //depending on the selection then the app prints something different
-        if (gameModus == Constants.MODI_OPTIONS_LIST[4]) //start with the case of checking out
-        {
-            //case for checking out
-            UserChecksOut(userCredit);
-        }
 
-        //continue with the most expensive case = 12$ and check the money
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[3])
+        switch (gameModus)
         {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, Constants.LINES_OPTIONS_COSTS_LIST[3]);
+            case Constants.OPTION_CHECK_OUT:
+                UserChecksOut(userCredit);
+                break;
+            case Constants.OPTION_8_LINES:
+                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus, Constants.COST_8_LINES);
+                break;
+            case Constants.OPTION_6_LINES:
+                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_6_LINES);
+                break;
+            case Constants.OPTION_3_LINES:
+                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_3_LINES);
+                break;
+            case Constants.OPTION_1_LINE:
+                (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.COST_1_LINE);
+                break;
         }
-
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[2])
-        {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[2]);
-        }
-
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[1])
-        {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[1]);
-        }
-
-        else if (gameModus == Constants.MODI_OPTIONS_LIST[0])
-        {
-            (isMoneyEnough, userCredit) = RestingUsersCredit(userCredit, gameModus,Constants.LINES_OPTIONS_COSTS_LIST[0]);
-        }
-
         return (userCredit, isMoneyEnough);
     }
 
     //Line options with costs
-    static public void PrintLineOptions(List<int> optionsLinesMode, List<int> optionsLinesCosts)
+    static public void PrintLineOptions()
     {
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine("How many lines would you like to play? Please select one option");
         Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine($"1 middle line  = {optionsLinesCosts[0]}$  (Press {optionsLinesMode[0]})");
-        Console.WriteLine($"3 Horizontal lines = {optionsLinesCosts[1]}$  (Press {optionsLinesMode[1]})");
+        Console.WriteLine($"1 middle line  = {Constants.OPTION_1_LINE}$  (Press {Constants.COST_1_LINE}$))");
+        Console.WriteLine($"3 Horizontal lines = {Constants.OPTION_3_LINES}$  (Press {Constants.COST_3_LINES}$))");
         Console.WriteLine(
-            $"3 Horizontal + 3 Vertical lines = {optionsLinesCosts[2]}$  (Press {optionsLinesMode[2]})");
+            $"3 Horizontal + 3 Vertical lines = {Constants.OPTION_6_LINES}$  (Press {Constants.COST_6_LINES})");
         Console.WriteLine(
-            $"3 Horizontal + 3 Vertical lines + 2 Diagonal = {optionsLinesCosts[3]}$ (Press {optionsLinesMode[3]})");
+            $"3 Horizontal + 3 Vertical lines + 2 Diagonal = {Constants.OPTION_8_LINES}$ (Press {Constants.COST_8_LINES})");
         Console.ForegroundColor = ConsoleColor.DarkGray;
-        Console.WriteLine($"In case you want to check out the money then press '{optionsLinesMode[4]}'");
+        Console.WriteLine($"In case you want to check out the money then press '{Constants.OPTION_CHECK_OUT}'");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
     
