@@ -25,7 +25,7 @@
                 //read key method
                 (userCredit, gameMode, selection) = UiMethods.ReadUserKey(userCredit);
                 
-            } while (Constants.KEYS_OPTIONS_LIST.Contains(selection) && !gameMode); //if the gamemode is activated then we leave this loop
+            } while ((selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING ) && !gameMode); //if the gamemode is activated then we leave this loop
 
             //in case the user has more money, then he can play
             while (userCredit > 0)

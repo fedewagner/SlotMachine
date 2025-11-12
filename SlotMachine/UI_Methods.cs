@@ -25,12 +25,12 @@ public class UiMethods
     public static void OfferAddingCredit()
     {
         //uses the defined keys for adding credit
-        Console.WriteLine($"If you want to add some credit (Press {Constants.KEYS_OPTIONS_LIST[0]})!");
+        Console.WriteLine($"If you want to add some credit (Press {Constants.KEY_FOR_ADDING_CREDIT})!");
     }
 
     public static void OfferGamingMode()
     {
-        Console.WriteLine($"Otherwise, to play (Press {Constants.KEYS_OPTIONS_LIST[1]})!");
+        Console.WriteLine($"Otherwise, to play (Press {Constants.KEY_FOR_GAMING})!");
         Console.ForegroundColor = ConsoleColor.Gray;
     }
 
@@ -51,11 +51,11 @@ public class UiMethods
            //read key method
             selection = Console.ReadKey(true).KeyChar.ToString().ToLower();
 
-            if (!Constants.KEYS_OPTIONS_LIST.Contains(selection))
+            if (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING ))
             {
-                Console.WriteLine($"Please press ´{Constants.KEYS_OPTIONS_LIST[0]}´ or ´{Constants.KEYS_OPTIONS_LIST[1]}´ ");
+                Console.WriteLine($"Please press ´{Constants.KEY_FOR_ADDING_CREDIT}´ or ´{Constants.KEY_FOR_GAMING}´ ");
             }
-        } while (!Constants.KEYS_OPTIONS_LIST.Contains(selection)); //repeat if the key is not valid
+        } while (!(selection == Constants.KEY_FOR_ADDING_CREDIT || selection == Constants.KEY_FOR_GAMING )); //repeat if the key is not valid
         
 
         switch (selection)

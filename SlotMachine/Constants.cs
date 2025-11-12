@@ -36,9 +36,7 @@ public class Constants
     
     //List for the cost of the different options
     public static readonly List<int> LINES_OPTIONS_COSTS_LIST = new() { COST_1_LINE, COST_3_LINES, COST_6_LINES, COST_8_LINES };
-            
-    //List with the key options
-    public static readonly List<string> KEYS_OPTIONS_LIST = new() { KEY_FOR_ADDING_CREDIT, KEY_FOR_GAMING };
+    
 
 
 
