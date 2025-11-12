@@ -38,6 +38,7 @@
                     case Constants.KEY_FOR_ADDING_CREDIT: //user pressed "f"
                     {
                         userCredit = Logic.AddUserCredit(userCredit);
+                        
                         //Prints credit
                         UiMethods.ShowsCredit(userCredit);
                         break;

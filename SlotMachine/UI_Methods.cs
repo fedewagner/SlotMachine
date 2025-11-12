@@ -81,11 +81,7 @@ public class UiMethods
                 Console.WriteLine($"Please press {Constants.OPTION_1_LINE}, {Constants.OPTION_3_LINES}, {Constants.OPTION_6_LINES}, {Constants.OPTION_8_LINES} or {Constants.OPTION_CHECK_OUT}!");
             }
             
-        } while (!success || (selectedLine != Constants.OPTION_1_LINE && 
-                              selectedLine != Constants.OPTION_3_LINES && 
-                              selectedLine != Constants.OPTION_6_LINES && 
-                              selectedLine != Constants.OPTION_8_LINES && 
-                              selectedLine != Constants.OPTION_CHECK_OUT));
+        } while (!success || !Constants.MODI_COST_MAP.ContainsKey(selectedLine));
         
         gameMode = selectedLine;
         
