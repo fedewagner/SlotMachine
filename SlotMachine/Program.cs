@@ -47,31 +47,32 @@
             while (userCredit > 0)
             {
                 // defining the game modus  
-                int gameModus = UiMethods.AskForLinesSelection();
+                int userLinesSelection = UiMethods.ReadUserLinesSelection();
 
                 //checking the credit
                 bool isMoneyEnough = false;
-  
-                if (Constants.MODI_COST_MAP.TryGetValue(gameModus, out int costPerLine))
-                {
-                    
-                    isMoneyEnough = UiMethods.CheckingCredit(userCredit, costPerLine, gameModus);
-                    
-                    if (isMoneyEnough)
-                    { userCredit = UiMethods.RestingUsersCredit(userCredit, costPerLine); }
-
-                    else
-                    {
-                        UiMethods.PrintError();
-                    }
-                    
-                }
                 
                 //if user want to check out
-                if (gameModus == Constants.OPTION_CHECK_OUT)
+                if (userLinesSelection == Constants.OPTION_CHECK_OUT)
                 {
                     UiMethods.UserChecksOut(userCredit);
                     break; // we go out from Playing Modus
+                }
+                
+                if (Constants.MODI_COST_MAP.TryGetValue(userLinesSelection, out int costPerLine))
+                {
+                    
+                    if (userCredit >= costPerLine)
+                    {
+                        UiMethods.InformUserAboutBet(userLinesSelection);
+                        userCredit = UiMethods.RestingUsersCredit(userCredit, costPerLine); 
+                        isMoneyEnough = true;
+                    }
+                    else
+                    {
+                        UiMethods.InformAboutNotEnoughMoney(userCredit, costPerLine);
+                    }
+                    
                 }
                 
                 //if user has enough money
@@ -85,7 +86,7 @@
 
                     //Checking the combinations and calculating the new user credit if wins
 
-                    int wonInTheBet = Logic.CheckingTheCombinations(gameModus, userArray);
+                    int wonInTheBet = Logic.CheckingTheCombinations(userLinesSelection, userArray);
 
                     //add the won money to the credit
                     userCredit = Logic.AddMoneyToUsersCredit(userCredit, wonInTheBet);
@@ -93,7 +94,7 @@
                     //Printing message
                     UiMethods.PrintingWinnerText(wonInTheBet);
                     
-                    //printing user credit
+                    //printing user new credit
                     UiMethods.ShowsCredit(userCredit);
                 }
             }
@@ -103,8 +104,6 @@
             {
                 UiMethods.AskingUserToLeaveBecauseOfNoMoneyLeft(userCredit);
             }
-
-            //insert more money option
 
         }
     }

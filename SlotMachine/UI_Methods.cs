@@ -25,7 +25,6 @@ public class UiMethods
         //uses the defined keys for adding credit
         Console.WriteLine($"If you want to add some credit (Press {Constants.KEY_FOR_ADDING_CREDIT})!");
         Console.WriteLine($"Otherwise, to play (Press {Constants.KEY_FOR_GAMING})!");
-        Console.ForegroundColor = ConsoleColor.Gray;
     }
     
 
@@ -55,7 +54,7 @@ public class UiMethods
     /// This Method helps to select the bet 1L = 1$, 3L = 3$, 6L = 8$ or 8L = 12$
     /// </summary>
     /// <returns></returns>
-    public static int AskForLinesSelection()
+    public static int ReadUserLinesSelection()
     {
         //Printing options for the user and the line selection
         PrintLineOptions();
@@ -68,11 +67,8 @@ public class UiMethods
         do
         {
             success = int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selectedLine);
-            if (selectedLine != Constants.OPTION_1_LINE && 
-                selectedLine != Constants.OPTION_3_LINES && 
-                selectedLine != Constants.OPTION_6_LINES && 
-                selectedLine != Constants.OPTION_8_LINES && 
-                selectedLine != Constants.OPTION_CHECK_OUT)
+            
+            if (!Constants.MODI_COST_MAP.ContainsKey(selectedLine))
             {
                 Console.WriteLine($"Please press {Constants.OPTION_1_LINE}, {Constants.OPTION_3_LINES}, {Constants.OPTION_6_LINES}, {Constants.OPTION_8_LINES} or {Constants.OPTION_CHECK_OUT}!");
             }
@@ -112,34 +108,18 @@ public class UiMethods
         Console.WriteLine("---------------------------------------------------------------------------");
     }
 
-    /// <summary>
-    /// This enables to check if the userCredit is enough or not
-    /// </summary>
-    /// <param name="userCredit"></param>
-    /// <param name="selectedBetCost"></param>
-    /// <returns></returns>
-    public static bool CheckingCredit(int userCredit, int selectedBetCost, int gameModus)
-    {
-        bool isMoneyEnough;
-        
-        if (userCredit >= selectedBetCost)
-        {
-            isMoneyEnough = true;
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"You've just selected playing with following lines amount: {gameModus}.");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("---------------------------------------------------------------------------");
-        }
-        else
-        {
-            isMoneyEnough = false;
-            Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {selectedBetCost}$");
-            Console.WriteLine("Please select another option");
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
 
-        return isMoneyEnough;
+    
+
+    public static void InformUserAboutBet(int userLinesSelection)
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"You've just selected playing with following lines amount: {userLinesSelection}.");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.WriteLine("---------------------------------------------------------------------------");
     }
+    
+    
     
     public static int RestingUsersCredit(int userCredit, int selectedBetCost)
     {
@@ -231,9 +211,10 @@ public class UiMethods
         Console.Write("You don't have credits to play, please insert more money to keep playing");
     }
 
-    public static void PrintError()
+    public static void InformAboutNotEnoughMoney(int userCredit, int selectedBetCost)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("Selected mode is not correct!");
+        Console.WriteLine($"User Credit: {userCredit}$ is lower than the cost: {selectedBetCost}$");
+        Console.WriteLine("Please select another option");
     }
 }
